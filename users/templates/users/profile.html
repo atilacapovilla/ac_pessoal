@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Perfil{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<div class="d-flex align-items-center justify-content-center full-height">
+    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom"> -->
+    <!-- </div> -->
+    <div class="col-md-10 col-lg-10">
+        <h1 class="h3">Perfil do usuário</h1>
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        {% if user.profile %}
+                        <img src="{{user.profile.avatar.url}}" alt="{{ user.username }}" class="avatar"
+                            accept=".jpg,.jpeg,.png" />
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ user_form.email | as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ profile_form.avatar | as_crispy_field }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-buttons mt-3">
+                                <button type="submit" class="btn btn-primary me-3">
+                                    <i class="bi-check2-circle me-2"></i>
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

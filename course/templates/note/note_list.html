@@ -1,0 +1,20 @@
+{% for note in notes %}
+<tr id="note-{{ note.pk }}" class="note-row">
+    <td class="table-col-descricao">
+        <a href="{% url 'detail_note' note.id %}" class="link-underline link-underline-opacity-0">
+            {{ note.title }}
+        </a>
+    </td>
+    <td class="table-col-150">{{ note.create_at|date:"d M Y" }}</td>
+    <td class="table-col-acoes">
+        <button class="btn btn-primary btn-sm me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+            hx-get="{% url 'edit_note' pk=note.pk %}" hx-target="#dialog">
+            <i class="bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir"
+            hx-get="{% url 'remove_note_confirmation' pk=note.pk %}" hx-target="#dialog">
+            <i class="bi-trash"></i>
+        </button>
+    </td>
+</tr>
+{% endfor %}

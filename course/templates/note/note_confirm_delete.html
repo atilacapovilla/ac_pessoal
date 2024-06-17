@@ -1,0 +1,33 @@
+<div class="modal-content border border-primary border-2">
+    <div class="modal-header">
+        <h5 class="modal-title text-primary">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <h3 class="mb-2 text-danger">Tem certeza que deseja excluir a anotação ?</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="form-label">Titulo</label>
+                <input class="form-control fs-4" type="text" value="{{ note.title }}" disabled
+                    readonly>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-between">
+        <button 
+            type="submit" 
+            class="btn btn-danger" 
+            hx-post="{% url 'remove_note' pk=note.pk %}"
+            hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'>   
+            <i class="bi-x-circle me-2"></i>
+            Confirmar Exclusão 
+        </button>
+        <button 
+            type="button" 
+            class="btn btn-secondary" 
+            data-bs-dismiss="modal">
+            <i class="bi-arrow-return-left me-2"></i>
+            Retornar para Lista sem excluir
+        </button>
+    </div>
+</div>

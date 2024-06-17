@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Exclusão de Assunto
+{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="d-flex align-items-center justify-content-center full-height">
+    <div class="col-md-6 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header text-primary h4">
+                Exclusão de Assunto
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir o assunto ?</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Titulo</label>
+                            <input class="form-control fs-4" type="text" value="{{ subject.title }}" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="form-buttons d-flex justify-content-between mt-5">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi-x-circle me-2"></i>
+                            Confirmar Exclusão
+                        </button>
+                        <a href="{% url 'subjects' %}" class="btn btn-secondary">
+                            <i class="bi-arrow-return-left me-2"></i>
+                            Retornar para Lista sem excluir
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% load crispy_forms_tags %}
+<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' 
+    class="modal-content border border-primary border-2" novalidate>
+    {{ form.media }}
+    <div class="modal-header">
+        <h5 class="modal-title text-primary">
+            {% if note %}Alteração de {% else %}Nova {% endif %} Anotação
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form.title | as_crispy_field }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    {{ form.content | as_crispy_field }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-start">
+        <div class="form-buttons">
+            <button type="submit" class="btn btn-primary me-2">
+                <i class="bi bi-check2-circle me-2"></i>
+                Salvar
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <i class="bi-x-circle me-2"></i>
+                Cancelar
+            </button>
+        </div>
+    </div>
+</form

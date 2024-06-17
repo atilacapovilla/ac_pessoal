@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% if course %}Alteração de {% else %}Novo {% endif %} Curso
+{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="d-flex align-items-center justify-content-center full-height">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header text-primary h4">
+                {% if course %}Alteração de {% else %}Novo {% endif %} Curso
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                {{ form.title| as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form.subject| as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.description| as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary me-3">
+                            <i class="bi-check2-circle me-2"></i>
+                            Salvar
+                        </button>
+                        <a href="{% url 'courses' %}" class="btn btn-secondary">
+                            <i class="bi-x-circle me-2"></i>
+                            Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
