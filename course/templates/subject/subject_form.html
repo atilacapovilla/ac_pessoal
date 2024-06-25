@@ -1,17 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
+PyPessoal {% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
 {% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="d-flex align-items-center justify-content-center full-height">
+<h1 class="h4 mt-4">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'subjects' %}">Assuntos</a></li>
+    <li class="breadcrumb-item active">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</li>
+</ol>
+
+<div class="d-flex align-items-center justify-content-center">
     <div class="col-md-8 col-lg-8">
         <div class="card shadow">
-            <div class="card-header text-primary h4">
-                {% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
+            <div class="card-header">
+                {% if subject %}
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    Alteração de 
+                {% else %}
+                    <i class="fa-regular fa-square-plus"></i>
+                    Novo 
+                {% endif %} 
+                    Assunto
             </div>
             <div class="card-body">
                 <form method="post" novalidate>
@@ -25,13 +39,9 @@
                     </div>
                     <div class="form-buttons">
                         <button type="submit" class="btn btn-primary me-3">
-                            <i class="bi-check2-circle me-2"></i>
+                            <i class="fa-regular fa-floppy-disk me-2"></i>
                             Salvar
                         </button>
-                        <a href="{% url 'subjects' %}" class="btn btn-secondary">
-                            <i class="bi-x-circle me-2"></i>
-                            Cancelar
-                        </a>
                     </div>
                 </form>
             </div>

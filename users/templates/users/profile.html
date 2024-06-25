@@ -5,13 +5,18 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-
-<div class="d-flex align-items-center justify-content-center full-height">
-    <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom"> -->
-    <!-- </div> -->
+<h1 class="h4 mt-4">Perfil do Usuário</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Perfil</li>
+</ol>
+<div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
-        <h1 class="h3">Perfil do usuário</h1>
         <div class="card shadow">
+            <div class="card-header">
+                <i class="fa-regular fa-address-card"></i>
+                Perfil do Usuário
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -39,7 +44,7 @@
                             </div>
                             <div class="form-buttons mt-3">
                                 <button type="submit" class="btn btn-primary me-3">
-                                    <i class="bi-check2-circle me-2"></i>
+                                    <i class="fa-regular fa-floppy-disk"></i>
                                     Salvar
                                 </button>
                             </div>

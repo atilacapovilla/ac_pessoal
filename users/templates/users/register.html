@@ -2,13 +2,16 @@
 {% load static %}
 {% block title %}Registrar novo usuário{% endblock title %}
 
-{% block content %}
+{% block login %}
 {% load crispy_forms_tags %}
 
 <div class="d-flex align-items-center justify-content-center full-height">
     <div class="col-md-10 col-lg-10">
-        <h1 class="h3">Registrar novo usuário</h1>
         <div class="card shadow">
+            <div class="card-header">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Registrar novo usuário
+            </div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
@@ -38,7 +41,7 @@
                     </div>
                     <div class="form-buttons">
                         <button type="submit" class="btn btn-primary me-3">
-                            <i class="bi-check2-circle me-2"></i>
+                            <i class="fa-regular fa-floppy-disk"></i>
                             Salvar
                         </button>
                     </div>

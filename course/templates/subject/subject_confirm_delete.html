@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-Exclusão de Assunto
+
+{% block title %}PyPessoal - Exclusão de Assunto
 {% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="d-flex align-items-center justify-content-center full-height">
-    <div class="col-md-6 col-lg-6">
+<h1 class="h4 mt-4">Exclusão de Assunto</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'subjects' %}">Assuntos</a></li>
+    <li class="breadcrumb-item active">Exclusão de Assunto</li>
+</ol>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-10 col-lg-10">
         <div class="card shadow">
-            <div class="card-header text-primary h4">
+            <div class="card-header">
+                <i class="fa-regular fa-trash-can"></i>
                 Exclusão de Assunto
             </div>
             <div class="card-body">
@@ -25,11 +32,11 @@ Exclusão de Assunto
                     </div>
                     <div class="form-buttons d-flex justify-content-between mt-5">
                         <button type="submit" class="btn btn-danger">
-                            <i class="bi-x-circle me-2"></i>
+                            <i class="fa-regular fa-trash-can"></i>
                             Confirmar Exclusão
                         </button>
                         <a href="{% url 'subjects' %}" class="btn btn-secondary">
-                            <i class="bi-arrow-return-left me-2"></i>
+                            <i class="fa-solid fa-rotate-left"></i>
                             Retornar para Lista sem excluir
                         </a>
                     </div>

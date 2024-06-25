@@ -2,22 +2,18 @@
 {% load static %}
 {% block title %}Login{% endblock title %}
 
-{% block content %}
+{% block login %}
 {% load crispy_forms_tags %}
 
-<div class="row gx-5 align-items-center justify-content-center full-height">
+<div class="row align-items-center justify-content-center full-height">
     <div class="col-md-4 col-lg-4">
-        <div class="pt-3 pb-2 text-center">
-            <h1 class="h3">
-                <i class="bi bi-stack me-2"></i>
-                SGP - PyPessoal
-            </h1>
-        </div>
+        {% include "mensagens.html" %}
         <div class="card shadow">
+            <div class="card-header">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Acessar o sistema
+            </div>
             <div class="card-body">
-                <div class="mb-1">
-                    <p>Entre com o usuário e senha para acessar sua conta.</p>
-                </div>
                 <form method="post" novalidate autocomplete="off">
                     {% csrf_token %}
                     {% for f in form %}
@@ -31,13 +27,13 @@
                     {% endfor %}
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-lg btn-primary mt-3">
-                            <i class="bi-box-arrow-in-right me-2"></i>
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
                             Login
                         </button>
                     </div>
                     <div class="form-buttons">
                         <hr>
-                        <p class="mt-5">
+                        <p class="mt-2">
                             Esqueceu sua senha ?
                             <a href="{% url 'password-reset' %}" class="text-primary fw-bold text-decoration-none ms-2">
                                 Redefina sua Senha
