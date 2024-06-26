@@ -1,115 +1,82 @@
-import json
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
-from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.list import ListView
+from django.views.generic.edit import DeleteView, CreateView, UpdateView
 
 from course.models.course import Course
 from course.models.note import Note
 from course.forms.note_forms import NoteForm
 
 
-@login_required
-def notes(request, id=id):
-    course = get_object_or_404(Course, id=id, user=request.user)
-    notes = Note.objects.filter(user=request.user, course=course)
-    context = {
-        'course': course,
-        'notes': notes
-    }
-    return render(request, 'note/note.html', context)
+class NoteList(LoginRequiredMixin, ListView):
+    model = Note
+    context_object_name = 'notes'
+    template_name = 'note/note_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        course_id = self.kwargs['course_id']
+        notes = Note.objects.filter(
+            user=self.request.user, course_id=course_id)
+        query = self.request.GET.get('search')
+        if query:
+            notes = notes.filter(title__icontains=query)
+        return notes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs['course_id']
+        context["course"] = Course.objects.get(id=id)
+        return context
 
 
-@login_required
-def note_list(request, id=id):
-    course = get_object_or_404(Course, id=id, user=request.user)
-    notes = Note.objects.filter(user=request.user, course=course)
-    return render(request, 'note/note_list.html', {'notes': notes})
+class NoteCreate(LoginRequiredMixin, CreateView):
+    model = Note
+    template_name = 'note/note_form.html'
+    form_class = NoteForm
+    paginate_by = 10
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.course_id = self.kwargs['course_id']
+        messages.success(self.request, 'A Anotação foi criada com sucesso.')
+        return super(NoteCreate, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('note-list', kwargs={'course_id': self.kwargs['course_id']})
 
 
-@login_required
-def add_note(request, id=id):
-    if request.method == "POST":
-        form = NoteForm(request.POST)
-        if form.is_valid():
-            course = get_object_or_404(Course, id=id, user=request.user)
-            note = Note.objects.create(
-                title=form.cleaned_data.get('title'),
-                content=form.cleaned_data.get('content'),
-                course=course,
-                user=request.user
-            )
-            return HttpResponse(
-                status=204,
-                headers={
-                    'HX-Trigger': json.dumps({
-                        "noteListChanged": None,
-                        "showMessage": f"{note.title} salvo."
-                    })
-                })
-        else:
-            return render(request, 'note/note_form.html', {'form': form, })
-    else:
-        form = NoteForm()
-        return render(request, 'note/note_form.html', {'form': form, })
+class NoteUpdate(LoginRequiredMixin, UpdateView):
+    model = Note
+    template_name = 'note/note_form.html'
+    form_class = NoteForm
+
+    def form_valid(self, form):
+        messages.success(self.request, 'A Anotação foi alterada com sucesso.')
+        return super(NoteUpdate, self).form_valid(form)
+
+    def get_queryset(self):
+        base_qs = super(NoteUpdate, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('note-list', kwargs={'course_id': self.kwargs['course_id']})
 
 
-@login_required
-def edit_note(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
-    if request.method == "POST":
-        form = NoteForm(request.POST, initial={
-            'title': note.title,
-            'content': note.content,
-        })
-        if form.is_valid():
-            note.title = form.cleaned_data.get('title')
-            note.content = form.cleaned_data.get('content')
-            note.save()
-            return HttpResponse(
-                status=204,
-                headers={
-                    'HX-Trigger': json.dumps({
-                        "noteListChanged": None,
-                        "showMessage": f"{note.title} alterado."
-                    })
-                }
-            )
-        else:
-            return render(request, 'note/note_form.html', {
-                'form': form,
-                'note': note,
-            })
-    else:
-        form = NoteForm(initial={
-            'title': note.title,
-            'content': note.content,
-        })
-        return render(request, 'note/note_form.html', {'form': form, 'note': note, })
+class NoteDelete(LoginRequiredMixin, DeleteView):
+    model = Note
+    context_object_name = 'note'
+    template_name = 'note/note_confirm_delete.html'
 
+    def form_valid(self, form):
+        messages.success(self.request, 'A Anotação foi excluida com sucesso.')
+        return super(NoteDelete, self).form_valid(form)
 
-@login_required
-def remove_note_confirmation(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
-    return render(request, 'note/note_confirm_delete.html', {'note': note, })
+    def get_queryset(self):
+        base_qs = super(NoteDelete, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
 
-
-@ require_POST
-def remove_note(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
-    note.delete()
-    return HttpResponse(
-        status=204,
-        headers={
-            'HX-Trigger': json.dumps({
-                "noteListChanged": None,
-                "showMessage": f"{note.title} excluido."
-            })
-        })
-
-
-@login_required
-def detail_note(request, pk):
-    note = get_object_or_404(Note, pk=pk, user=request.user)
-    return render(request, 'note/note_detail.html', {'note': note, })
+    def get_success_url(self):
+        return reverse_lazy('note-list', kwargs={'course_id': self.kwargs['course_id']})

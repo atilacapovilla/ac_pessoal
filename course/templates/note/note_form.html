@@ -1,37 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% if note %}Alteração de {% else %}Nova {% endif %} Anotação
+{% endblock title %}
+
+{% block content %}
 {% load crispy_forms_tags %}
-<form hx-post="{{ request.path }}" hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}' 
-    class="modal-content border border-primary border-2" novalidate>
-    {{ form.media }}
-    <div class="modal-header">
-        <h5 class="modal-title text-primary">
-            {% if note %}Alteração de {% else %}Nova {% endif %} Anotação
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{ form.title | as_crispy_field }}
-                </div>
+
+<h1 class="h4 mt-4">{% if note%}Alteração de {% else %}Nova {% endif %} Anotação</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'note-list' object.course_id %}">Anotações</a></li>
+    <li class="breadcrumb-item active">{% if course%}Alteração de {% else %}Nova {% endif %} Anotação</li>
+</ol>
+<div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header">
+                {% if note %}
+                <i class="fa-regular fa-pen-to-square"></i>
+                Alteração de
+                {% else %}
+                <i class="fa-regular fa-square-plus"></i>
+                Nova
+                {% endif %}
+                Anotação
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    {{ form.content | as_crispy_field }}
-                </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.title | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.content | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="fa-regular fa-floppy-disk"></i>
+                            Salvar
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="modal-footer d-flex justify-content-start">
-        <div class="form-buttons">
-            <button type="submit" class="btn btn-primary me-2">
-                <i class="bi bi-check2-circle me-2"></i>
-                Salvar
-            </button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                <i class="bi-x-circle me-2"></i>
-                Cancelar
-            </button>
-        </div>
-    </div>
-</form
+</div>
+{% endblock %}

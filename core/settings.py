@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'home',
     'course',
     'users',
+    'sweetify',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -164,12 +165,13 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 SUMMERNOTE_THEME = 'bs4'
+
 SUMMERNOTE_CONFIG = {
     'iframe': True,
     'summernote': {
         'airMode': False,
         'width': '100%',
-        'height': '300',
+        'height': '200',
         'lang': 'pt-BR',
         'toolbar': [
             ['style', ['style']],

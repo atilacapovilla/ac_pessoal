@@ -13,6 +13,7 @@
     <li class="breadcrumb-item"><a href="{% url 'subjects' %}">Assuntos</a></li>
     <li class="breadcrumb-item active">Exclusão de Assunto</li>
 </ol>
+
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
         <div class="card shadow">
@@ -27,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label class="form-label">Titulo</label>
-                            <input class="form-control fs-4" type="text" value="{{ subject.title }}" disabled readonly>
+                            <input class="form-control fs-4" name="title" type="text" value="{{ subject.title }}" disabled readonly>
                         </div>
                     </div>
                     <div class="form-buttons d-flex justify-content-between mt-5">

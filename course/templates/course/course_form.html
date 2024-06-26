@@ -6,11 +6,26 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-<div class="d-flex align-items-center justify-content-center full-height">
+
+<h1 class="h4 mt-4">{% if course%}Alteração de {% else %}Novo {% endif %} Curso</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
+    <li class="breadcrumb-item active">{% if course%}Alteração de {% else %}Novo {% endif %} Curso</li>
+</ol>
+
+<div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
         <div class="card shadow">
-            <div class="card-header text-primary h4">
-                {% if course %}Alteração de {% else %}Novo {% endif %} Curso
+            <div class="card-header">
+                {% if course %}
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    Alteração de 
+                {% else %}
+                    <i class="fa-regular fa-square-plus"></i>
+                    Novo 
+                {% endif %} 
+                    Curso
             </div>
             <div class="card-body">
                 <form method="post" novalidate>
@@ -35,14 +50,10 @@
                         </div>
                     </div>
                     <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary me-3">
-                            <i class="bi-check2-circle me-2"></i>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-regular fa-floppy-disk"></i>
                             Salvar
                         </button>
-                        <a href="{% url 'courses' %}" class="btn btn-secondary">
-                            <i class="bi-x-circle me-2"></i>
-                            Cancelar
-                        </a>
                     </div>
                 </form>
             </div>

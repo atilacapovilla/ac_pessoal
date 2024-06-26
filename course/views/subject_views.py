@@ -1,3 +1,4 @@
+import sweetify
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -31,7 +32,8 @@ class SubjectCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'O Assunto foi criado com suceso.')
+        # messages.success(self.request, 'O Assunto foi criado com suceso.')
+        sweetify.success(self.request, 'O Assunto foi criado com suceso.')
         return super(SubjectCreate, self).form_valid(form)
 
 
@@ -42,7 +44,8 @@ class SubjectUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('subjects')
 
     def form_valid(self, form):
-        messages.success(self.request, 'O Assunto foi alterado com suceso.')
+        # messages.success(self.request, 'O Assunto foi alterado com suceso.')
+        sweetify.success(self.request, 'O Assunto foi alterado com suceso.')
         return super(SubjectUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -57,7 +60,8 @@ class SubjectDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('subjects')
 
     def form_valid(self, form):
-        messages.success(self.request, 'O Assunto foi excluido com suceso.')
+        # messages.success(self.request, 'O Assunto foi excluido com suceso.')
+        sweetify.error(self.request, 'O Assunto foi excluido com suceso.')
         return super(SubjectDelete, self).form_valid(form)
 
 

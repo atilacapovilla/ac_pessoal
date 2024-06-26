@@ -7,10 +7,18 @@ Exclusão de Curso
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="d-flex align-items-center justify-content-center full-height">
+<h1 class="h4 mt-4">Exclusão de Curso</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
+    <li class="breadcrumb-item active">Exclusão de Curso</li>
+</ol>
+
+<div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
         <div class="card shadow">
-            <div class="card-header text-primary h4">
+            <div class="card-header">
+                <i class="fa-regular fa-trash-can"></i>
                 Exclusão de Curso
             </div>
             <div class="card-body">
@@ -18,22 +26,18 @@ Exclusão de Curso
                     {% csrf_token %}
                     <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir o curso ?</div>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <label class="form-label">Titulo</label>
                             <input class="form-control fs-4" type="text" value="{{ course.title }}" disabled readonly>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Assunto</label>
-                            <input class="form-control fs-4" type="text" value="{{ course.subject}}" disabled readonly>
                         </div>
                     </div>
                     <div class="form-buttons d-flex justify-content-between mt-5">
                         <button type="submit" class="btn btn-danger">
-                            <i class="bi-x-circle me-2"></i>
+                            <i class="fa-regular fa-trash-can"></i>
                             Confirmar Exclusão
                         </button>
                         <a href="{% url 'courses' %}" class="btn btn-secondary">
-                            <i class="bi-arrow-return-left me-2"></i>
+                            <i class="fa-solid fa-rotate-left"></i>
                             Retornar para Lista sem excluir
                         </a>
                     </div>

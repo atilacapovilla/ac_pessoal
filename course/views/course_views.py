@@ -6,6 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 
 from course.models.course import Course
+from course.models.course import Subject
 from course.forms.course_forms import CourseForm
 
 
@@ -29,9 +30,12 @@ class CourseCreate(LoginRequiredMixin, CreateView):
     form_class = CourseForm
     success_url = reverse_lazy('courses')
 
+    def get_initial(self):
+        return {'usuario': self.request.user}
+
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'O Curso foi criado com suceso.')
+        messages.success(self.request, 'O Curso foi criado com sucesso.')
         return super(CourseCreate, self).form_valid(form)
 
 
@@ -41,8 +45,11 @@ class CourseUpdate(LoginRequiredMixin, UpdateView):
     form_class = CourseForm
     success_url = reverse_lazy('courses')
 
+    def get_initial(self):
+        return {'usuario': self.request.user}
+
     def form_valid(self, form):
-        messages.success(self.request, 'O Curso foi alterado com suceso.')
+        messages.success(self.request, 'O Curso foi alterado com sucesso.')
         return super(CourseUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -57,10 +64,9 @@ class CourseDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('courses')
 
     def form_valid(self, form):
-        messages.success(self.request, 'O Curso foi excluido com suceso.')
+        messages.success(self.request, 'O Curso foi excluido com sucesso.')
         return super(CourseDelete, self).form_valid(form)
 
-
-def get_queryset(self):
-    base_qs = super(CourseDelete, self).get_queryset()
-    return base_qs.filter(user=self.request.user)
+    def get_queryset(self):
+        base_qs = super(CourseDelete, self).get_queryset()
+        return base_qs.filter(user=self.request.user)

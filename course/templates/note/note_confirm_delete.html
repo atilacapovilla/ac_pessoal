@@ -1,33 +1,50 @@
-<div class="modal-content border border-primary border-2">
-    <div class="modal-header">
-        <h5 class="modal-title text-primary">Confirmar Exclusão</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-        <h3 class="mb-2 text-danger">Tem certeza que deseja excluir a anotação ?</h3>
-        <div class="row">
-            <div class="col-md-12">
-                <label class="form-label">Titulo</label>
-                <input class="form-control fs-4" type="text" value="{{ note.title }}" disabled
-                    readonly>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Exclusão de Anotação
+{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1 class="h4 mt-4">Exclusão de Anotação</h1>
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'note-list' object.course_id %}">Anotações</a></li>
+    <li class="breadcrumb-item active">Exclusão de Curso</li>
+</ol>
+
+<div class="d-flex align-items-center justify-content-center">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow">
+            <div class="card-header">
+                <i class="fa-regular fa-trash-can"></i>
+                Exclusão de Anotação
+            </div>
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir a Anotação ?</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Titulo</label>
+                            <input class="form-control fs-4" type="text" value="{{ note.title }}" disabled readonly>
+                        </div>
+                    </div>
+                    <div class="form-buttons d-flex justify-content-between mt-5">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-regular fa-trash-can"></i>
+                            Confirmar Exclusão
+                        </button>
+                        <a href="{% url 'note-list' note.course_id %}" class="btn btn-secondary">
+                            <i class="fa-solid fa-rotate-left"></i>
+                            Retornar para Lista sem excluir
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <div class="modal-footer d-flex justify-content-between">
-        <button 
-            type="submit" 
-            class="btn btn-danger" 
-            hx-post="{% url 'remove_note' pk=note.pk %}"
-            hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'>   
-            <i class="bi-x-circle me-2"></i>
-            Confirmar Exclusão 
-        </button>
-        <button 
-            type="button" 
-            class="btn btn-secondary" 
-            data-bs-dismiss="modal">
-            <i class="bi-arrow-return-left me-2"></i>
-            Retornar para Lista sem excluir
-        </button>
-    </div>
 </div>
+{% endblock %}
