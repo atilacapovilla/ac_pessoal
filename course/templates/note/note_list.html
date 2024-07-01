@@ -1,90 +1,77 @@
 {%extends 'base.html'%}
 {% load static %}
-{% block title %}Lista de Anotações{% endblock title %}
-{%block content%}
 
-<h1 class="h4 mt-4">
-    Lista de Anotações - Curso: {{ course.title }}
-</h1>
+{% block title %}Lista de Anotações{% endblock title %}
+
+{%block content%}
+<div class="d-flex justify-content-between align-items-center">
+    <h1 class="h4 mt-4">
+        Lista de Anotações - {{ course.title }}
+    </h1>
+    <a href="{% url 'note-create' course.id %}" class="btn btn-success shadow">
+        <i class="fa-regular fa-square-plus"></i>
+        Nova Anotação
+    </a>
+</div>
+
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
     <li class="breadcrumb-item active">Anotações</li>
 </ol>
 
-<div class="card shadow mt-2">
-    <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <h5>
-                <i class="fa-regular fa-note-sticky"></i>
-                Anotações
-            </h5>
-            <form action="{% url 'note-list' course.id %}" method="get">
-                <div class="d-flex justify-content-between align-items-center">
-                    <input type="search" name="search" value="{{request.GET.search}}"
-                        placeholder="Perquisar por titulo..." class="form-control me-2" />
-                    {% if request.GET.search %}
-                    <a class="btn btn-secondary me-2" href="{% url 'note-list' course.id %}" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Reiniciar Consulta">
-                        <i class="fa-solid fa-rotate"></i>
+<form action="{% url 'note-list' course.id %}" method="get" class="mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <input type="search" name="search" value="{{request.GET.search}}" placeholder="Perquisar por titulo..."
+            class="form-control me-2" />
+        {% if request.GET.search %}
+        <a class="btn btn-secondary me-2" href="{% url 'note-list' course.id %}" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Reiniciar Consulta">
+            <i class="fa-solid fa-rotate"></i>
+        </a>
+        {% endif %}
+        <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Pesquisar">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</form>
+
+{% if notes %}
+<div class="table-responsive">
+    <table class="table table-sm table-hover border-dark">
+        <thead>
+            <tr>
+                <th class="table-col-descricao">Titulo</th>
+                <th class="table-col-150">Data Criação</th>
+                <th class="table-col-acoes">Ação</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for note in notes %}
+            <tr id="note-{{ note.pk }}" class="note-row">
+                <td class="table-col-descricao">{{ note.title|truncatewords:20 }}</td>
+                <td class="table-col-150">{{ note.create_at|date:"d M Y" }}</td>
+                <td class="table-col-acoes">
+                    <a href="{% url 'note-detail' pk=note.pk %}"
+                        class="btn btn-info btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Detalhes da anotação">
+                        <i class="fa-regular fa-address-card"></i>
+                        Detalhes da anotação
                     </a>
-                    {% endif %}
-                    <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Pesquisar">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </form>
-            <a href="{% url 'note-create' course.id %}" class="btn btn-success shadow">
-                <i class="fa-regular fa-square-plus"></i>
-                Adicionar Anotação
-            </a>
-        </div>
-    </div>
-    <div class="card-body">
-        {% if notes %}
-        <div class="table-responsive">
-            <table class="table table-sm table-hover">
-                <thead>
-                    <tr>
-                        <th class="table-col-descricao">Titulo</th>
-                        <th class="table-col-150">Data Criação</th>
-                        <th class="table-col-acoes">Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for note in notes %}
-                    <tr id="note-{{ note.pk }}" class="note-row">
-                        <td class="table-col-descricao">
-                            <a href="#" class="link-underline link-underline-opacity-0">
-                                {{ note.title }}
-                            </a>
-                        </td>
-                        <td class="table-col-150">{{ note.create_at|date:"d M Y" }}</td>
-                        <td class="table-col-acoes">
-                            <a href="{% url 'note-update' course_id=note.course.id pk=note.pk %}"
-                                class="btn btn-primary btn-sm me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Editar">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                            <a href="{% url 'note-delete' course_id=note.course.id pk=note.pk %}"
-                                class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Excluir">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            {% include "pagination.html" %}
-        </div>
-    </div>
-    {% else %}
-    <div class='fs-3 text-center'>
-        <i class="fa-solid fa-comment-slash"></i>
-        Nenhuma anotação cadastrada
-    </div>
-    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "pagination.html" %}
 </div>
+
+{% else %}
+<div class='fs-3 text-center'>
+    <i class="fa-solid fa-comment-slash"></i>
+    Nenhuma anotação cadastrada
+</div>
+{% endif %}
+
 {%endblock content%}

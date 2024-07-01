@@ -14,37 +14,24 @@ PyPessoal {% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
     <li class="breadcrumb-item active">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</li>
 </ol>
 
+
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-8 col-lg-8">
-        <div class="card shadow">
-            <div class="card-header">
-                {% if subject %}
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    Alteração de 
-                {% else %}
-                    <i class="fa-regular fa-square-plus"></i>
-                    Novo 
-                {% endif %} 
-                    Assunto
-            </div>
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.title| as_crispy_field }}
-                            </div>
+        <div class="border border-dark border-2 rounded-2 shadow p-3 mb-2">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form.title| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa-regular fa-floppy-disk"></i>
-                            Salvar
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary shadow">
+                    <i class="fa-regular fa-floppy-disk"></i>
+                    Salvar
+                </button>
+            </form>
         </div>
     </div>
 </div>

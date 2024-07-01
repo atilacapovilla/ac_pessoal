@@ -16,48 +16,33 @@
 
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
-        <div class="card shadow">
-            <div class="card-header">
-                {% if course %}
-                    <i class="fa-regular fa-pen-to-square"></i>
-                    Alteração de 
-                {% else %}
-                    <i class="fa-regular fa-square-plus"></i>
-                    Novo 
-                {% endif %} 
-                    Curso
-            </div>
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                {{ form.title| as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                {{ form.subject| as_crispy_field }}
-                            </div>
+        <div class="border border-dark border-2 rounded-2 shadow p-3 mb-2">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            {{ form.title| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.description| as_crispy_field }}
-                            </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.subject| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa-regular fa-floppy-disk"></i>
-                            Salvar
-                        </button>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form.description| as_crispy_field }}
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+                <button type="submit" class="btn btn-primary shadow">
+                    <i class="fa-regular fa-floppy-disk"></i>
+                    Salvar
+                </button>
+            </form>
         </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

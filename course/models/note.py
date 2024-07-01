@@ -16,4 +16,4 @@ class Note(models.Model):
     class Meta:
         verbose_name = 'Nota'
         verbose_name_plural = 'Notas'
-        ordering = ['title']
+        ordering = ['create_at', 'title']

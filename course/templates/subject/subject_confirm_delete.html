@@ -16,33 +16,28 @@
 
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
-        <div class="card shadow">
-            <div class="card-header">
-                <i class="fa-regular fa-trash-can"></i>
-                Exclusão de Assunto
-            </div>
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir o assunto ?</div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label class="form-label">Titulo</label>
-                            <input class="form-control fs-4" name="title" type="text" value="{{ subject.title }}" disabled readonly>
-                        </div>
+        <div class="border border-dark border-2 rounded-2 shadow p-3 mb-2">
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir o assunto ?</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-label">Titulo</label>
+                        <input class="form-control fs-4" name="title" type="text" value="{{ subject.title }}" disabled
+                            readonly>
                     </div>
-                    <div class="form-buttons d-flex justify-content-between mt-5">
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa-regular fa-trash-can"></i>
-                            Confirmar Exclusão
-                        </button>
-                        <a href="{% url 'subjects' %}" class="btn btn-secondary">
-                            <i class="fa-solid fa-rotate-left"></i>
-                            Retornar para Lista sem excluir
-                        </a>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="form-buttons d-flex justify-content-between mt-5">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-regular fa-trash-can"></i>
+                        Confirmar Exclusão
+                    </button>
+                    <a href="{% url 'subjects' %}" class="btn btn-secondary">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Retornar para Lista sem excluir
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>
