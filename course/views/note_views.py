@@ -1,3 +1,4 @@
+import sweetify
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.staticfiles import finders
@@ -50,7 +51,8 @@ class NoteCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.course_id = self.kwargs['course_id']
-        messages.success(self.request, 'A Anotação foi criada com sucesso.')
+        # messages.success(self.request, 'A Anotação foi criada com sucesso.')
+        sweetify.success(self.request, 'A Anotação foi criada com suceso.')
         return super(NoteCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -68,7 +70,8 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
     form_class = NoteForm
 
     def form_valid(self, form):
-        messages.success(self.request, 'A Anotação foi alterada com sucesso.')
+        # messages.success(self.request, 'A Anotação foi alterada com sucesso.')
+        sweetify.success(self.request, 'A Anotação foi alterada com sucesso.')
         return super(NoteUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -79,6 +82,11 @@ class NoteUpdate(LoginRequiredMixin, UpdateView):
         # return reverse_lazy('note-detail', Note.id)
         return reverse_lazy('note-detail', kwargs={'pk': self.kwargs['pk']})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["course_id"] = self.kwargs['course_id']
+        return context
+
 
 class NoteDelete(LoginRequiredMixin, DeleteView):
     model = Note
@@ -86,7 +94,8 @@ class NoteDelete(LoginRequiredMixin, DeleteView):
     template_name = 'note/note_confirm_delete.html'
 
     def form_valid(self, form):
-        messages.success(self.request, 'A Anotação foi excluida com sucesso.')
+        # messages.success(self.request, 'A Anotação foi excluida com sucesso.')
+        sweetify.success(self.request, 'A Anotação foi Excluida com sucesso.')
         return super(NoteDelete, self).form_valid(form)
 
     def get_queryset(self):

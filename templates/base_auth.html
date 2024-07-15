@@ -1,0 +1,33 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PyPessoal{% endblock title %}</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="main">
+      <main class="content px-3 py-2">
+        <div class="container-fluid">
+          {% include "components/mensagens.html" %}
+
+          {% block content %}
+
+          {% endblock %}
+        </div>
+      </main>
+      {% include "components/footer.html" %}
+    </div>
+  </div>
+  <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+
+</html>

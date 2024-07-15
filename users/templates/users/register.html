@@ -1,8 +1,9 @@
-{% extends 'base.html' %}
+{%extends 'base_auth.html'%}
 {% load static %}
-{% block title %}Registrar novo usuário{% endblock title %}
 
-{% block login %}
+{% block title %}PyPessoal - Regisgrar{% endblock title %}
+
+{% block content %}
 {% load crispy_forms_tags %}
 
 <div class="d-flex align-items-center justify-content-center full-height">
@@ -41,7 +42,7 @@
                     </div>
                     <div class="form-buttons">
                         <button type="submit" class="btn btn-primary me-3">
-                            <i class="fa-regular fa-floppy-disk"></i>
+                            <i class="bi bi-check-lg me-2"></i>
                             Salvar
                         </button>
                     </div>

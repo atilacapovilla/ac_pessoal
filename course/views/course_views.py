@@ -1,3 +1,5 @@
+import sweetify
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -35,7 +37,8 @@ class CourseCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        messages.success(self.request, 'O Curso foi criado com sucesso.')
+        # messages.success(self.request, 'O Curso foi criado com sucesso.')
+        sweetify.success(self.request, 'O Curso foi criado com suceso.')
         return super(CourseCreate, self).form_valid(form)
 
 
@@ -49,7 +52,8 @@ class CourseUpdate(LoginRequiredMixin, UpdateView):
         return {'usuario': self.request.user}
 
     def form_valid(self, form):
-        messages.success(self.request, 'O Curso foi alterado com sucesso.')
+        # messages.success(self.request, 'O Curso foi alterado com sucesso.')
+        sweetify.success(self.request, 'O Curso foi alterado com suceso.')
         return super(CourseUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -64,7 +68,8 @@ class CourseDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('courses')
 
     def form_valid(self, form):
-        messages.success(self.request, 'O Curso foi excluido com sucesso.')
+        # messages.success(self.request, 'O Curso foi excluido com sucesso.')
+        sweetify.error(self.request, 'O Curso foi excluido com suceso.')
         return super(CourseDelete, self).form_valid(form)
 
     def get_queryset(self):

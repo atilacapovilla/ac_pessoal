@@ -8,7 +8,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <h1 class="h4 mt-4">Cursos</h1>
     <a href="{% url 'course-create' %}" class="btn btn-success shadow">
-        <i class="fa-regular fa-square-plus"></i>
+        <i class="bi bi-plus-circle me-2"></i>
         Novo Curso
     </a>
 </div>
@@ -25,21 +25,22 @@
         {% if request.GET.search %}
         <a class="btn btn-secondary me-2" href="{% url 'courses' %}" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Reiniciar Consulta">
-            <i class="fa-solid fa-rotate"></i>
+            <i class="bi bi-arrow-repeat"></i>
         </a>
         {% endif %}
         <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Pesquisar">
-            <i class="fas fa-search"></i>
+            <i class="bi bi-search"></i>
         </button>
     </div>
 </form>
 
 {% if courses %}
 <div class="table-responsive">
-    <table class="table table-sm table-hover border-dark">
+    <table class="table table-hover">
         <thead>
             <tr>
+                <th>#</th>
                 <th class="table-col-descricao">Titulo</th>
                 <th class="table-col-150">Assunto</th>
                 <th class="table-col-150">Autor</th>
@@ -50,6 +51,7 @@
         <tbody class="table-group-divider">
             {% for course in courses %}
             <tr>
+                <td>{{ course.id }}</td>
                 <td class="table-col-descricao">{{ course.title |truncatewords:12}}</td>
                 <td class="table-col-150">{{ course.subject }}</td>
                 <td class="table-col-150">{{ course.user | title }}</td>
@@ -64,18 +66,18 @@
                 <td class="table-col-acoes">
                     <a href="{% url 'course-update' course.id %}" class="btn btn-primary btn-sm me-2"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
-                        <i class="fa-regular fa-pen-to-square"></i>
+                        <i class="bi bi-pencil-square"></i>
                     </a>
                     <a href="{% url 'course-delete' course.id %}" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
                         data-bs-placement="top" title="Excluir">
-                        <i class="fa-regular fa-trash-can"></i>
+                        <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% include "pagination.html" %}
+    {% include "components/pagination.html" %}
 </div>
 {% else %}
 <div class='fs-3 text-center'>

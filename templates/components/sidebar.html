@@ -1,0 +1,105 @@
+<aside id="sidebar" class="js-sidebar">
+    <!-- Content For Sidebar -->
+    <div class="h-100">
+        <div class="sidebar-logo">
+            <a href="#"><i class="bi bi-stack pe-1"></i>PyPessoal</a>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="{% url 'dashboard' %}" class="sidebar-link">
+                    <i class="bi bi-speedometer pe-1"></i>
+                    Dashboard
+                </a>
+            </li>
+            <!-- Cadastros Gerais -->
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed" data-bs-target="#cadastros" data-bs-toggle="collapse"
+                    aria-expanded="false">
+                    <i class="bi bi-person-vcard pe-1"></i>
+                    Cadastros Gerais
+                </a>
+                <ul id="cadastros" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link sidebar-link-sub">Pessoas</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- Anotações -->
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
+                    aria-expanded="false">
+                    <i class="bi bi-file-text pe-1"></i>
+                    Anotações
+                </a>
+                <ul id="pages" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="{% url 'subjects' %}" class="sidebar-link sidebar-link-sub">Assuntos</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="{% url 'courses' %}" class="sidebar-link sidebar-link-sub">Cursos</a>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Financeiro -->
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link collapsed" data-bs-target="#financeiro" data-bs-toggle="collapse"
+                    aria-expanded="false">
+                    <i class="bi bi-cash-coin pe-1"></i>
+                    Financeiro
+                </a>
+                <ul id="financeiro" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <!-- Financeiro Cadastros -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed sidebar-link-sub" data-bs-target="#fin-cadastros"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                            Cadastros
+                        </a>
+                        <ul id="fin-cadastros" class="sidebar-dropdown list-unstyled collapse">
+                            <li class="sidebar-item ">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Grupos
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Categorias
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Contas
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Financeiro Movimento -->
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link collapsed sidebar-link-sub" data-bs-target="#fin-movimento"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            <i class="bi bi-three-dots-vertical"></i>
+                            Movimentação
+                        </a>
+                        <ul id="fin-movimento" class="sidebar-dropdown list-unstyled collapse">
+                            <li class="sidebar-item ">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Lançamentos
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Planejamento
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link sidebar-link-sub2">
+                                    Extratos
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </ul>
+    </div>
+</aside>

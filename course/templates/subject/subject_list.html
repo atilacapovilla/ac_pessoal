@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between align-items-center">
     <h1 class="h4 mt-4">Assuntos</h1>
     <a href="{% url 'subject-create' %}" class="btn btn-success shadow">
-        <i class="fa-regular fa-square-plus"></i>
+        <i class="bi bi-plus-circle me-2"></i>
         Novo Assunto
     </a>
 </div>
@@ -24,46 +24,48 @@
         {% if request.GET.search %}
         <a class="btn btn-secondary me-2" href="{% url 'subjects' %}" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Reiniciar Consulta">
-            <i class="fa-solid fa-rotate"></i>
+            <i class="bi bi-arrow-repeat"></i>
         </a>
         {% endif %}
         <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
             title="Pesquisar">
-            <i class="fas fa-search"></i>
+            <i class="bi bi-search"></i>
         </button>
     </div>
 </form>
 
 {% if subjects %}
 <div class="table-responsive">
-    <table class="table table-sm table-hover border-dark">
+    <table class="table table-hover">
         <thead>
             <tr>
+                <th>#</th>
                 <th class="table-col-descricao">Descrição</th>
-                <th class="table-col-descricao">Autor</th>
+                <th>Autor</th>
                 <th class="table-col-acoes">Ações</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
             {% for subject in subjects %}
             <tr>
-                <td class="table-col-descricao ">{{ subject.title }}</td>
+                <td>{{ subject.id }}</td>
+                <td class="table-col-descricao">{{ subject.title }}</td>
                 <td>{{ subject.user | title }}</td>
                 <td class="table-col-acoes">
                     <a href="{% url 'subject-update' subject.id %}" class="btn btn-primary btn-sm me-2"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
-                        <i class="fa-regular fa-pen-to-square"></i>
+                        <i class="bi bi-pencil-square"></i>
                     </a>
                     <a href="{% url 'subject-delete' subject.id %}" class="btn btn-danger btn-sm"
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
-                        <i class="fa-regular fa-trash-can"></i>
+                        <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% include "pagination.html" %}
+    {% include "components/pagination.html" %}
 </div>
 {% else %}
 <div class='fs-3 text-center'>

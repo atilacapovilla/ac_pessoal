@@ -29,12 +29,12 @@ Exclusão de Anotação
                 </div>
                 <div class="form-buttons d-flex justify-content-between mt-5">
                     <button type="submit" class="btn btn-danger">
-                        <i class="fa-regular fa-trash-can"></i>
+                        <i class="bi bi-trash me-2"></i>
                         Confirmar Exclusão
                     </button>
-                    <a href="{% url 'note-list' object.course_id %}" class="btn btn-secondary">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        Retornar para Lista sem excluir
+                    <a href="{% url 'note-detail' pk=note.pk %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-repeat me-2"></i>
+                        Retornar para detalhes sem excluir
                     </a>
                 </div>
             </form>

@@ -1,15 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html'%}
 {% load static %}
-{% block login %}
-<div class="container">
-    <div class="row gx-5 align-items-center justify-content-center full-height">
+
+{% block title %}PyPessoal - Home{% endblock title %}
+
+{%block content%}
+<div class="container mt-4 p-4">
+    <div class="row gx-5 align-items-center justify-content-center">
         <div class="col-lg-8 col-xl-7 col-xxl-6">
             <div class="my-5 text-center text-xl-start">
-                <h1 class="display-5 fw-bolder mb-2">
-                    Sistemas Pessoais
+                <h1 class="display-6 mb-2">
+                    Sistema de Gerenciamento Pessoal
                 </h1>
                 <p class="lead fw-normal mb-4">
-                    Sistema pessoal, conjunto de ferramentas e recursos que ajudam a organizar e
+                    Conjunto de ferramentas e recursos que ajudam a organizar e
                     gerenciar sua vida pessoal, incluindo finanças, tarefas, anotações e muito mais.
                 </p>
                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
