@@ -52,7 +52,7 @@
             {% for course in courses %}
             <tr>
                 <td>{{ course.id }}</td>
-                <td class="table-col-descricao">{{ course.title |truncatewords:12}}</td>
+                <td class="table-col-descricao">{{ course.title }}</td>
                 <td class="table-col-150">{{ course.subject }}</td>
                 <td class="table-col-150">{{ course.user | title }}</td>
                 <td>

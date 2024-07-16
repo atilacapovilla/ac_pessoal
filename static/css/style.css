@@ -224,36 +224,35 @@ html[data-bs-theme="light"] .theme-toggle .bi-sun {
 
 .full-height {
     height: calc(100vh - 56px);
-  }
+}
   
-  .table-col-descricao {
+.table-col-descricao {
     width: 500px;
     min-width: 500px;
-  }
+}
   
-  .table-col-200 {
+.table-col-200 {
     width: 250px;
     min-width: 250px;
-  }
+}
   
-  .table-col-150 {
+.table-col-150 {
     width: 150px;
     min-width: 150px;
-  }
+}
   
-  .table-col-100 {
+.table-col-100 {
     width: 130px;
     min-width: 130px;
-  }
+}
   
-  .table-col-80 {
+.table-col-80 {
     width: 80px;
     min-width: 80px;
-  }
+}
   
-  .table-col-acoes {
+.table-col-acoes {
     width: 150px;
     min-width: 150px;
     text-align: right;
-  }
-  
+}
