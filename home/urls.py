@@ -1,9 +1,9 @@
 from django.urls import path
 
-from home.views import home, Dashboard
+from home.views import home, dashboard
 
 
 urlpatterns = [
     path('', home, name='home'),
-    path('dashboard/', Dashboard.as_view(), name='dashboard')
+    path('dashboard/', dashboard, name='dashboard')
 ]

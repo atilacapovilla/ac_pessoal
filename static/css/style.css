@@ -256,3 +256,18 @@ html[data-bs-theme="light"] .theme-toggle .bi-sun {
     min-width: 150px;
     text-align: right;
 }
+
+.card-border-primary {
+    border-left-color: #0DCAF0;
+    border-left-width: 5px;
+}
+
+.card-border-danger {
+    border-left-color: #CD3342;
+    border-left-width: 5px;
+}
+
+.card-border-success {
+    border-left-color: #1B6B47;
+    border-left-width: 5px;
+}
