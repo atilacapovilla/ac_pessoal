@@ -12,6 +12,7 @@ urlpatterns = [
     path('', include('course.urls.course_urls')),
     path('', include('course.urls.note_urls')),
     path('', include('users.urls')),
+    path('', include('finance.urls')),
 ]
 
 if settings.DEBUG:
