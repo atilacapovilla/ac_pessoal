@@ -1,0 +1,94 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Contas{% endblock title %}
+
+{%block content%}
+
+<div class="d-flex justify-content-between align-items-center">
+    <h1 class="h4 mt-4">Contas</h1>
+</div>
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Contas</li>
+</ol>
+
+<div class="row">
+    <div class="col-6">
+        <form action="{% url 'accounts' %}" method="get" class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <input type="search" name="search" value="{{request.GET.search}}" placeholder="Perquisar por titulo..."
+                    class="form-control me-2" />
+                {% if request.GET.search %}
+                <a class="btn btn-secondary me-2" href="{% url 'accounts' %}" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Reiniciar Consulta">
+                    <i class="bi bi-arrow-repeat"></i>
+                </a>
+                {% endif %}
+                <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Pesquisar">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-6">
+        <a href="{% url 'account-create' %}" class="btn btn-success shadow float-end">
+            <i class="bi bi-plus-circle me-2"></i>
+            Nova Conta
+        </a>
+    </div>
+</div>
+
+{% if accounts %}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="table-col-logo">Banco</th>
+                <th class="table-col-descricao">Name</th>
+                <th>Tipo</th>
+                <th>Saldo Inicial</th>
+                <th class="table-col-acoes">Ação</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account.id }}</td>
+                <td class="table-col-logo">
+                    {% if account.logo %}
+                    <img src="{{ account.logo.url }}" alt="" width="32px">
+                    {% else %}
+
+                    {% endif%}
+                </td>
+                <td class="table-col-descricao">{{ account.name }}</td>
+                <td>{{ account.get_type_display }}</td>
+                <td>{{ account.opening_balance }}</td>
+                <td class="table-col-acoes">
+                    <a href="{% url 'account-update' account.id %}" class="btn btn-primary btn-sm me-2"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="{% url 'account-delete' account.id %}" class="btn btn-danger btn-sm"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "components/pagination.html" %}
+</div>
+{% else %}
+<div class='fs-3 text-center'>
+    <i class="fa-solid fa-comment-slash"></i>
+    Nenhuma conta cadastrada
+</div>
+{% endif %}
+
+{% endblock content %}

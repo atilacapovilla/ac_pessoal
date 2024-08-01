@@ -6,6 +6,12 @@ from finance.views.category_views import (
     CategoryUpdate,
     CategoryDelete,
 )
+from finance.views.account_views import (
+    AccountList,
+    AccountCreate,
+    AccountUpdate,
+    AccountDelete,
+)
 
 urlpatterns = [
     # Category
@@ -15,4 +21,11 @@ urlpatterns = [
          CategoryUpdate.as_view(), name='category-update'),
     path('category/delete/<int:pk>/',
          CategoryDelete.as_view(), name='category-delete'),
+    # Accounts
+    path('accounts/', AccountList.as_view(), name='accounts'),
+    path('account/create/', AccountCreate.as_view(), name='account-create'),
+    path('account/update/<int:pk>/',
+         AccountUpdate.as_view(), name='account-update'),
+    path('account/delete/<int:pk>/',
+         AccountDelete.as_view(), name='account-delete'),
 ]
