@@ -6,55 +6,12 @@ PyPessoal - Dashboard
 {% endblock title %}
 
 {% block content %}
-
-<h1 class="h4 mt-4">Dashboard</h1>
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-</ol>
-<!-- <div class="card border-primary">
-    <div class="card-header bg-transparent border-primary">
-        Curso cadastrados
-    </div>
-    <div class="card-body">
-        <div class="row row-cols-3 row-cols-md-3 g-4">
-            {% for course in courses %}
-            <div class="col">
-                <div class="card border-primary shadow">
-                    <h5 class="card-header bg-transparent border-primary text-primary">
-                        {{ course.title }}
-                    </h5>
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <span class="badge text-bg-secondary">
-                                {{ course.subject }}
-                            </span>
-                        </h5>
-                        <p class="card-text">
-                            <i class="bi bi-person-circle pe-2"></i>
-                            {{ course.user }}
-                        </p>
-                        <p class="card-text">
-                            <i class="bi bi-calendar-date pe-2"></i>
-                            {{ course.create_at }}
-                        </p>
-                    </div>
-                    <div class="card-footer bg-transparent border-primary">
-                        <h5 class="badge text-bg-secondary">
-                            Anotações
-                            {% with total=course.notes.count %}
-                            {{ total }}
-                            {% endwith %}
-                        </h5>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="card-footer">
-        {% include "components/pagination.html" %}
-    </div>
-</div> -->
+<div class="d-flex justify-content-between align-items-center my-2">
+    <h1 class="h4">Dashboard</h1>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+    </ol>
+</div>
 
 {% include "home/components/_courses_metrics.html" %}
 {% endblock content %}

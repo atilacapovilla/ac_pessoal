@@ -3,48 +3,47 @@
 {% block title %}Detalhes da Anotação{% endblock title %}
 
 {%block content%}
-<h1 class="h4 mt-4">Detalhes Anotação</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h5">Detalhes Anotação</h1>
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
     <li class="breadcrumb-item"><a href="{% url 'note-list' object.course_id %}">Anotações</a></li>
-    <li class="breadcrumb-item active">Detalhes da Anotação</li>
+    <li class="breadcrumb-item active">Detalhes</li>
 </ol>
 
-<article class="px-5">
-    <div class="card">
-        <div class="card-header">
-            <div class="d-flex align-items-center justify-content-between">
-                <h1 class="fw-bolder mb-1 h5">{{ note.course|truncatewords:12}}</h1>
-                <div class="ms-auto">
-                    <a href="{% url 'note-update' course_id=note.course.id pk=note.id %}" class="btn btn-primary me-2" data-bs-toggle="tooltip"
-                        data-bs-placement="top" title="Editar">
-                        <i class="bi bi-pencil-square me-2"></i>
-                        Editar
-                    </a>
-                    <a href="{% url 'note-delete' course_id=note.course.id pk=note.id %}" class="btn btn-danger me-2"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
-                        <i class="bi bi-trash me-2"></i>
-                        Excluir
-                    </a>
-                    <a href="{% url 'note_report' note.id %}" target='_blank' rel=”noopener noreferer”
-                        class="btn btn-secondary">
-                        <i class="bi bi-filetype-pdf me-2"></i>
-                        Gerar PDF
-                    </a>
-                </div>
-            </div>
-            <h2 class=" fw-bolder mb-1 h5">{{ note.title}}</h2>
-            <div class="text-muted fst-italic mb-2">
-                Autor {{ note.user | title }}
-                - em {{ note.create_at|date:"d F Y" }}
-                - Ultima alteração {{ note.update_at|date:"d F Y" }}
-            </div>
+<div class="ms-auto mb-2">
+    <a href="{% url 'note-update' course_id=note.course.id pk=note.id %}" class="btn btn-primary me-2"
+        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+        <i class="bi bi-pencil-square me-2"></i>
+        Editar
+    </a>
+    <a href="{% url 'note-delete' course_id=note.course.id pk=note.id %}" class="btn btn-danger me-2"
+        data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
+        <i class="bi bi-trash me-2"></i>
+        Excluir
+    </a>
+    <a href="{% url 'note_report' note.id %}" target='_blank' rel=”noopener noreferer” class="btn btn-secondary">
+        <i class="bi bi-filetype-pdf me-2"></i>
+        PDF
+    </a>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between">
+            <h1 class="fw-bolder mb-1 h5">{{ note.course|truncatewords:12}}</h1>
+
         </div>
-        <div class="card-body">
-            {{ note.content|safe}}
+        <h2 class=" fw-bolder mb-1 h5">{{ note.title}}</h2>
+        <div class="text-muted fst-italic mb-2">
+            Autor {{ note.user | title }}
+            - em {{ note.create_at|date:"d F Y" }}
+            - Ultima alteração {{ note.update_at|date:"d F Y" }}
         </div>
     </div>
-</article>
+    <div class="card-body">
+        {{ note.content|safe}}
+    </div>
+</div>
+
 
 {%endblock content%}

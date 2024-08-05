@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{% if category %}Alteração de {% else %}Nova {% endif %} Categoria
-{% endblock title %}
+{% if category %}Alteração de {% else %}Nova {% endif %} Categoria{% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1 class="h4 mt-4">{% if category %}Alteração de {% else %}Nova {% endif %} Categoria</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h4">{% if category %}Alteração de {% else %}Nova {% endif %} Categoria</h1>
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'categories' %}">Categorias</a></li>
-    <li class="breadcrumb-item active">{% if category %}Alteração de {% else %}Nova {% endif %} Categoria</li>
+    <li class="breadcrumb-item active">{% if category %}Alteração{% else %}Nova{% endif %}</li>
 </ol>
 
 <div class="d-flex align-items-center justify-content-center">

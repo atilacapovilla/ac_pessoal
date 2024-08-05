@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{% if course %}Alteração de {% else %}Novo {% endif %} Curso
-{% endblock title %}
+{% if course %}Alteração de {% else %}Novo {% endif %} Curso{% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1 class="h4 mt-4">{% if course%}Alteração de {% else %}Novo {% endif %} Curso</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h5">{% if course%}Alteração de {% else %}Novo {% endif %} Curso</h1>
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
-    <li class="breadcrumb-item active">{% if course%}Alteração de {% else %}Novo {% endif %} Curso</li>
+    <li class="breadcrumb-item active">{% if course%}Alteração {% else %}Novo{% endif %}</li>
 </ol>
 
 <div class="d-flex align-items-center justify-content-center">

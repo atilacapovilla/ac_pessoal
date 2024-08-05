@@ -7,11 +7,11 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1 class="h4 mt-4">{% if account %}Alteração de {% else %}Nova {% endif %} Conta</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h4">{% if account %}Alteração de {% else %}Nova {% endif %} Conta</h1>
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'accounts' %}">Contas</a></li>
-    <li class="breadcrumb-item active">{% if account %}Alteração de {% else %}Nova {% endif %} Conta</li>
+    <li class="breadcrumb-item active">{% if account %}Alteração de {% else %}Nova {% endif %}</li>
 </ol>
 
 <div class="d-flex align-items-center justify-content-center">

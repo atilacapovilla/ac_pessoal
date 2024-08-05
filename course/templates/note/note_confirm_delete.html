@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}
-Exclusão de Anotação
-{% endblock title %}
+{% block title %}Exclusão de Anotação{% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
-
-<h1 class="h4 mt-4">Exclusão de Anotação</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h5">Exclusão de Anotação</h1>
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'courses' %}">Cursos</a></li>
     <li class="breadcrumb-item"><a href="{% url 'note-list' object.course_id %}">Anotações</a></li>
-    <li class="breadcrumb-item active">Exclusão de Curso</li>
+    <li class="breadcrumb-item active">Exclusão</li>
 </ol>
 
 <div class="d-flex align-items-center justify-content-center">
@@ -21,22 +18,24 @@ Exclusão de Anotação
             <form method="post" novalidate>
                 {% csrf_token %}
                 <div class="h5 mt-3 mb-3 text-danger">Tem certeza que deseja excluir a Anotação ?</div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-md-12">
-                        <label class="form-label">Titulo</label>
-                        <input class="form-control fs-4" type="text" value="{{ note.title }}" disabled readonly>
+                        <label class="form-label">Curso</label>
+                        <input class="form-control fs-4 text-danger" type="text" value="{{ note.course }}" disabled
+                            readonly>
                     </div>
                 </div>
-                <div class="form-buttons d-flex justify-content-between mt-5">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="bi bi-trash me-2"></i>
-                        Confirmar Exclusão
-                    </button>
-                    <a href="{% url 'note-detail' pk=note.pk %}" class="btn btn-secondary">
-                        <i class="bi bi-arrow-repeat me-2"></i>
-                        Retornar para detalhes sem excluir
-                    </a>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-label">Anotação</label>
+                        <input class="form-control fs-4 text-danger" type="text" value="{{ note.title }}" disabled
+                            readonly>
+                    </div>
                 </div>
+                <button type="submit" class="btn btn-danger mt-5">
+                    <i class="bi bi-trash me-2"></i>
+                    Confirmar Exclusão
+                </button>
             </form>
         </div>
     </div>

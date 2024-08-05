@@ -7,13 +7,13 @@ PyPessoal {% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1 class="h4 mt-4">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</h1>
-<ol class="breadcrumb mb-4">
+<h1 class="h5">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</h1>
+
+<ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{% url 'subjects' %}">Assuntos</a></li>
-    <li class="breadcrumb-item active">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</li>
+    <li class="breadcrumb-item active">{% if subject %}Alteração {% else %}Novo{% endif %}</li>
 </ol>
-
 
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-8 col-lg-8">
