@@ -114,13 +114,13 @@ class Transaction(models.Model):
         ('D', 'Debito'),
     )
     transaction_date = models.DateField(
-        'data transação',
+        'data da transação',
         default=datetime.now)
     due_date = models.DateField(
-        'data vencimento',
+        'data de vencimento',
         default=datetime.now)
     is_paid = models.BooleanField(
-        'pago ?',
+        'está pago ?',
         default=True
     )
     account = models.ForeignKey(

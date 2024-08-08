@@ -14,8 +14,8 @@ from finance.views.account_views import (
 )
 from finance.views.transaction_views import (
     TransactionList,
-    #     TransactionCreate,
-    #     TransactionUpdate,
+    TransactionCreate,
+    TransactionUpdate,
     #     TransactionDelete,
 )
 
@@ -36,9 +36,10 @@ urlpatterns = [
          AccountDelete.as_view(), name='account-delete'),
     # Transactions
     path('transactions/', TransactionList.as_view(), name='transactions'),
-    #     path('account/create/', AccountCreate.as_view(), name='account-create'),
-    #     path('account/update/<int:pk>/',
-    #          AccountUpdate.as_view(), name='account-update'),
+    path('transaction/create/', TransactionCreate.as_view(),
+         name='transaction-create'),
+    path('transaction/update/<int:pk>/',
+         TransactionUpdate.as_view(), name='transaction-update'),
     #     path('account/delete/<int:pk>/',
     #          AccountDelete.as_view(), name='account-delete'),
 ]

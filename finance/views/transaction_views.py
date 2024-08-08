@@ -48,31 +48,38 @@ class TransactionList(LoginRequiredMixin, ListView):
         context["accounts"] = Account.objects.filter(user=self.request.user)
         return context
 
-# class AccountCreate(LoginRequiredMixin, CreateView):
-#     model = Account
-#     template_name = 'account/account_form.html'
-#     form_class = AccountForm
-#     success_url = reverse_lazy('accounts')
 
-#     def form_valid(self, form):
-#         form.instance.user = self.request.user
-#         sweetify.success(self.request, 'A Conta foi criada com suceso.')
-#         return super(AccountCreate, self).form_valid(form)
+class TransactionCreate(LoginRequiredMixin, CreateView):
+    model = Transaction
+    template_name = 'transaction/transaction_form.html'
+    form_class = TransactionForm
+    success_url = reverse_lazy('transactions')
+
+    def get_initial(self):
+        return {'user': self.request.user}
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        sweetify.success(self.request, 'A Transaçãofoi criada com suceso.')
+        return super(TransactionCreate, self).form_valid(form)
 
 
-# class AccountUpdate(LoginRequiredMixin, UpdateView):
-#     model = Account
-#     template_name = 'account/account_form.html'
-#     form_class = AccountForm
-#     success_url = reverse_lazy('accounts')
+class TransactionUpdate(LoginRequiredMixin, UpdateView):
+    model = Transaction
+    template_name = 'transaction/transaction_form.html'
+    form_class = TransactionForm
+    success_url = reverse_lazy('transactions')
 
-#     def form_valid(self, form):
-#         sweetify.success(self.request, 'A Conta foi alterada com suceso.')
-#         return super(AccountUpdate, self).form_valid(form)
+    def get_initial(self):
+        return {'user': self.request.user}
 
-#     def get_queryset(self):
-#         base_qs = super(AccountUpdate, self).get_queryset()
-#         return base_qs.filter(user=self.request.user)
+    def form_valid(self, form):
+        sweetify.success(self.request, 'A Transação foi alterada com suceso.')
+        return super(TransactionUpdate, self).form_valid(form)
+
+    def get_queryset(self):
+        base_qs = super(TransactionUpdate, self).get_queryset()
+        return base_qs.filter(user=self.request.user)
 
 
 # class AccountDelete(LoginRequiredMixin, DeleteView):

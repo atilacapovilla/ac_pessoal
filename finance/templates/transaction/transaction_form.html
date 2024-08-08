@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-{% if account %}Alteração de {% else %}Nova {% endif %} Conta
+{% if account %}Alteração de {% else %}Nova {% endif %} Transação
 {% endblock title %}
 
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1 class="h4">{% if account %}Alteração de {% else %}Nova {% endif %} Conta</h1>
+<h1 class="h4">{% if transaction %}Alteração de {% else %}Nova {% endif %} Transação</h1>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'accounts' %}">Contas</a></li>
-    <li class="breadcrumb-item active">{% if account %}Alteração de {% else %}Nova {% endif %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'transactions' %}">Transações</a></li>
+    <li class="breadcrumb-item active">{% if transaction %}Alteração de {% else %}Nova {% endif %}</li>
 </ol>
 
 <div class="d-flex align-items-center justify-content-center">
@@ -20,29 +20,50 @@
             <form method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            {{ form.name| as_crispy_field }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             {{ form.type| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            {{ form.opening_balance| as_crispy_field }}
+                            {{ form.transaction_date| as_crispy_field }}
                         </div>
                     </div>
-
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.due_date| as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.account| as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.category| as_crispy_field }}
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            {{ form.transaction_value| as_crispy_field }}
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            {{ form.logo| as_crispy_field }}
+                            {{ form.description| as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            {{ form.is_paid| as_crispy_field }}
                         </div>
                     </div>
                 </div>

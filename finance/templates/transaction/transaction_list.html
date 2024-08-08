@@ -32,25 +32,9 @@
                 <i class="bi bi-search"></i>
             </button>
         </form>
-        <!-- <form action="{% url 'transactions' %}" method="get" class="mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <input type="search" name="search" value="{{request.GET.search}}" placeholder="Perquisar por titulo..."
-                    class="form-control me-2" />
-                {% if request.GET.search %}
-                <a class="btn btn-secondary me-2" href="{% url 'transactions' %}" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Reiniciar Consulta">
-                    <i class="bi bi-arrow-repeat"></i>
-                </a>
-                {% endif %}
-                <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
-                    title="Pesquisar">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-        </form> -->
     </div>
     <div class="col-12 col-md-3">
-        <a href="#" class="btn btn-success shadow float-end">
+        <a href="{% url 'transaction-create' %}" class="btn btn-success shadow float-end">
             <i class="bi bi-plus-circle me-2"></i>
             Nova Transação
         </a>
@@ -91,8 +75,8 @@
                     {% endif %}
                 </td>
                 <td class="table-col-acoes">
-                    <a href="#" class="btn btn-primary btn-sm me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Editar">
+                    <a href="{% url 'transaction-update' transaction.id %}" class="btn btn-primary btn-sm me-2"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                     <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
