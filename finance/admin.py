@@ -14,5 +14,5 @@ class AccountAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('transaction_date', 'due_date', 'payment_date', 'account',
-                    'description', 'transaction_value', 'type')
+    list_display = ('transaction_date', 'due_date', 'account',
+                    'description', 'transaction_value', 'is_paid', 'type')

@@ -1,0 +1,116 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Transações{% endblock title %}
+
+{%block content%}
+
+<h1 class="h4">Transações</h1>
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+    <li class="breadcrumb-item active">Transações</li>
+</ol>
+
+<div class="row mb-2">
+    <div class="col-12 col-md-9">
+        <form class="d-flex gap-3" action="{% url 'transactions' %}" method="GET">
+            <input name="start_date" type="date" value="{{request.GET.start_date}}" class="form-control me-2">
+            <input name="end_date" type="date" value="{{request.GET.end_date}}" class="form-control me-2">
+            <select class="form-select" name="account">
+                <option value="" selected> Todas as contas </option>
+                {% for account in accounts %}
+                <option value="{{account.id}}"> {{ account }} </option>
+                {% endfor %}
+            </select>
+            {% if request.GET.start_date %}
+            <a class="btn btn-secondary me-2" href="{% url 'transactions' %}">
+                <i class="bi bi-arrow-repeat"></i>
+            </a>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+            </button>
+        </form>
+        <!-- <form action="{% url 'transactions' %}" method="get" class="mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <input type="search" name="search" value="{{request.GET.search}}" placeholder="Perquisar por titulo..."
+                    class="form-control me-2" />
+                {% if request.GET.search %}
+                <a class="btn btn-secondary me-2" href="{% url 'transactions' %}" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="Reiniciar Consulta">
+                    <i class="bi bi-arrow-repeat"></i>
+                </a>
+                {% endif %}
+                <button type="submit" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Pesquisar">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form> -->
+    </div>
+    <div class="col-12 col-md-3">
+        <a href="#" class="btn btn-success shadow float-end">
+            <i class="bi bi-plus-circle me-2"></i>
+            Nova Transação
+        </a>
+    </div>
+</div>
+
+{% if transactions %}
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Data</th>
+                <th>Vencimento</th>
+                <th>Conta</th>
+                <th>Descrição</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Pagamento</th>
+                <th class="table-col-acoes">Ação</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction.id }}</td>
+                <td>{{ transaction.transaction_date|date:"d/m/Y" }}</td>
+                <td>{{ transaction.due_date|date:"d/m/Y" }}</td>
+                <td>{{ transaction.account }}</td>
+                <td>{{ transaction.description }}</td>
+                <td>{{ transaction.get_type_display }}</td>
+                <td>{{ transaction.transaction_value }}</td>
+                <td>
+                    {% if transaction.is_paid %}
+                    <span class="badge text-bg-success">Pago</span>
+                    {% else%}
+                    <span class="badge text-bg-danger">Em Aberto</span>
+                    {% endif %}
+                </td>
+                <td class="table-col-acoes">
+                    <a href="#" class="btn btn-primary btn-sm me-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Editar">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                        title="Excluir">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include "components/pagination.html" %}
+</div>
+{% else %}
+<div class='fs-3 text-center'>
+    <i class="fa-solid fa-comment-slash"></i>
+    Nenhuma transação cadastrada
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -119,10 +119,10 @@ class Transaction(models.Model):
     due_date = models.DateField(
         'data vencimento',
         default=datetime.now)
-    payment_date = models.DateField(
-        'data pagamento',
-        null=True,
-        blank=True)
+    is_paid = models.BooleanField(
+        'pago ?',
+        default=True
+    )
     account = models.ForeignKey(
         Account,
         on_delete=models.PROTECT,
@@ -156,9 +156,9 @@ class Transaction(models.Model):
         auto_now=True)
 
     def __str__(self):
-        return f'{self.description} - {self.transaction_date} - {self.due_date} - {self.payment_date} - {self.transaction_value}'
+        return f'{self.description} - {self.transaction_date} - {self.due_date} - {self.transaction_value}'
 
     class Meta:
-        ordering = ['-transaction_date', 'due_date', 'payment_date', 'type']
+        ordering = ['-transaction_date', 'due_date', 'type']
         verbose_name = 'Transação'
         verbose_name_plural = 'Transações'

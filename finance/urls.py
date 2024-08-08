@@ -12,6 +12,12 @@ from finance.views.account_views import (
     AccountUpdate,
     AccountDelete,
 )
+from finance.views.transaction_views import (
+    TransactionList,
+    #     TransactionCreate,
+    #     TransactionUpdate,
+    #     TransactionDelete,
+)
 
 urlpatterns = [
     # Category
@@ -28,4 +34,11 @@ urlpatterns = [
          AccountUpdate.as_view(), name='account-update'),
     path('account/delete/<int:pk>/',
          AccountDelete.as_view(), name='account-delete'),
+    # Transactions
+    path('transactions/', TransactionList.as_view(), name='transactions'),
+    #     path('account/create/', AccountCreate.as_view(), name='account-create'),
+    #     path('account/update/<int:pk>/',
+    #          AccountUpdate.as_view(), name='account-update'),
+    #     path('account/delete/<int:pk>/',
+    #          AccountDelete.as_view(), name='account-delete'),
 ]
