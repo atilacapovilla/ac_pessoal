@@ -19,37 +19,21 @@ class Category(models.Model):
         ('2', 'Superfluo'),
         ('3', 'Divida ou Investimento')
     )
-    name = models.CharField(
-        'nome',
-        max_length=50)
+    name = models.CharField(max_length=50, verbose_name='Nome')
     group = models.CharField(
-        'grupo',
-        max_length=1,
-        choices=GROUP_CHOICE,
-        default='1')
+        max_length=1, choices=GROUP_CHOICE, default='1', verbose_name='Grupo')
     type = models.CharField(
-        'tipo',
-        max_length=1,
-        choices=TYPE_CHOICE,
-        default='1')
+        max_length=1, choices=TYPE_CHOICE, default='1', verbose_name='Tipo')
     method = models.CharField(
-        'método 50-30-20',
-        max_length=1,
-        choices=METHOD_CHOICE,
-        default='1')
+        max_length=1, choices=METHOD_CHOICE, default='1', verbose_name='Método 50-30-20')
     planned_value = models.DecimalField(
-        'valor planejamento',
-        max_digits=10,
-        decimal_places=2,
-        default='0.00')
+        max_digits=10, decimal_places=2, default='0.00', verbose_name='Valor Planejado')
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name='Usuário')
+        User, on_delete=models.CASCADE, verbose_name='Usuário')
     created_at = models.DateTimeField(
-        auto_now_add=True)
+        auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(
-        auto_now=True)
+        auto_now=True, verbose_name='Alterado em')
 
     def __str__(self):
         return f'{self.name}'
@@ -67,37 +51,21 @@ class Account(models.Model):
         ('CT', 'Cartão Crédito'),
         ('IN', 'Investimentos')
     )
-    name = models.CharField(
-        'nome',
-        max_length=50)
+    name = models.CharField(max_length=50, verbose_name='Nome')
     type = models.CharField(
-        'tipo',
-        max_length=2,
-        choices=TYPE_CHOICE,
-        default='CC')
+        max_length=2, choices=TYPE_CHOICE, default='CC', verbose_name='Tipo')
     logo = models.ImageField(
-        'logotipo',
-        upload_to='images/',
-        null=True,
-        blank=True)
+        upload_to='images/', null=True, blank=True, verbose_name='Logotipo')
     opening_balance = models.DecimalField(
-        'saldo inicial',
-        max_digits=10,
-        decimal_places=2,
-        default='0.00')
+        max_digits=10, decimal_places=2, default='0.00', verbose_name='Saldo Inicial')
     current_balance = models.DecimalField(
-        'saldo atual',
-        max_digits=10,
-        decimal_places=2,
-        default='0.00')
+        max_digits=10, decimal_places=2, default='0.00', verbose_name='Saldo Atual')
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name='Usuário')
+        User, on_delete=models.CASCADE, verbose_name='Usuário')
     created_at = models.DateTimeField(
-        auto_now_add=True)
+        auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(
-        auto_now=True)
+        auto_now=True, verbose_name='Alterado em')
 
     def __str__(self):
         return self.name
@@ -114,46 +82,26 @@ class Transaction(models.Model):
         ('D', 'Debito'),
     )
     transaction_date = models.DateField(
-        'data da transação',
-        default=datetime.now)
+        default=datetime.now, verbose_name='Data da Transação')
     due_date = models.DateField(
-        'data de vencimento',
-        default=datetime.now)
-    is_paid = models.BooleanField(
-        'está pago ?',
-        default=True
-    )
+        default=datetime.now, verbose_name='Data de Vencimento')
+    is_paid = models.BooleanField(default=True, verbose_name='Pago')
     account = models.ForeignKey(
-        Account,
-        on_delete=models.PROTECT,
-        related_name='accounts',
-        verbose_name='conta')
+        Account, on_delete=models.PROTECT, related_name='accounts', verbose_name='Conta')
     category = models.ForeignKey(
-        Category,
-        on_delete=models.PROTECT,
-        related_name='categories',
-        verbose_name='categoria')
+        Category, on_delete=models.PROTECT, related_name='categories', verbose_name='categoria')
     description = models.CharField(
-        'descrição',
-        max_length=50,
-        blank=True,
-        null=True)
+        max_length=50, blank=True, null=True, verbose_name='Descrição')
     transaction_value = models.DecimalField(
-        'valor',
-        max_digits=10,
-        decimal_places=2)
+        max_digits=10, decimal_places=2, verbose_name='Valor')
     type = models.CharField(
-        'tipo',
-        max_length=1,
-        choices=TYPE_CHOICE, default='D')
+        max_length=1, choices=TYPE_CHOICE, default='D', verbose_name='Tipo')
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        verbose_name='Usuário')
+        User, on_delete=models.CASCADE, verbose_name='Usuário')
     created_at = models.DateTimeField(
-        auto_now_add=True)
+        auto_now_add=True, verbose_name='Criado em')
     updated_at = models.DateTimeField(
-        auto_now=True)
+        auto_now=True, verbose_name='Alterado em')
 
     def __str__(self):
         return f'{self.description} - {self.transaction_date} - {self.due_date} - {self.transaction_value}'

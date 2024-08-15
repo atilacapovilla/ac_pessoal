@@ -13,31 +13,72 @@
 </ol>
 
 <div class="row mb-2">
-    <div class="col-12 col-md-9">
-        <form class="d-flex gap-3" action="{% url 'transactions' %}" method="GET">
-            <input name="start_date" type="date" value="{{request.GET.start_date}}" class="form-control me-2">
-            <input name="end_date" type="date" value="{{request.GET.end_date}}" class="form-control me-2">
-            <select class="form-select" name="account">
-                <option value="" selected> Todas as contas </option>
-                {% for account in accounts %}
-                <option value="{{account.id}}"> {{ account }} </option>
-                {% endfor %}
-            </select>
-            {% if request.GET.start_date %}
-            <a class="btn btn-secondary me-2" href="{% url 'transactions' %}">
-                <i class="bi bi-arrow-repeat"></i>
-            </a>
-            {% endif %}
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-search"></i>
-            </button>
+    <div class="col-12 col-md-10">
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-text">Inicial</div>
+                    <input name="start_date" type="date" value="{{request.GET.start_date}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-text">Final</div>
+                    <input name="end_date" type="date" value="{{request.GET.end_date}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <select class="form-select" name="account">
+                    <option value="" selected> Todas as contas </option>
+                    {% for account in accounts %}
+                    <option value="{{account.id}}"> {{ account }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-12">
+                {% if request.GET.start_date %}
+                <a class="btn btn-secondary me-2" href="{% url 'transactions' %}">
+                    <i class="bi bi-arrow-repeat"></i>
+                </a>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
         </form>
     </div>
-    <div class="col-12 col-md-3">
-        <a href="{% url 'transaction-create' %}" class="btn btn-success shadow float-end">
-            <i class="bi bi-plus-circle me-2"></i>
-            Nova Transação
-        </a>
+
+    <div class="col-12 col-md-2">
+        <div class="dropdown float-end">
+            <button class="btn btn-success dropdown-toggle shadow" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                <i class="bi bi-plus-circle me-2"></i>
+                Nova Transação
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item-custom" href="{% url 'transaction-create' %}">
+                        <i class="bi bi-cash-coin me-2"></i>
+                        Débito/Crédito
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item-custom" href="{% url 'transfer' %}">
+                        <i class="bi bi-arrow-left-right me-2"></i>
+                        Transferencia
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item-custom" href="#">
+                        <i class="bi bi-credit-card me-2"></i>
+                        Pagamento Cartão de Crédito
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -79,8 +120,8 @@
                         data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="Excluir">
+                    <a href="{% url 'transaction-delete' transaction.id %}" class="btn btn-danger btn-sm"
+                        data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
                         <i class="bi bi-trash"></i>
                     </a>
                 </td>

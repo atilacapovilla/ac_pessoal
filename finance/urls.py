@@ -16,7 +16,8 @@ from finance.views.transaction_views import (
     TransactionList,
     TransactionCreate,
     TransactionUpdate,
-    #     TransactionDelete,
+    TransactionDelete,
+    Transfer,
 )
 
 urlpatterns = [
@@ -40,6 +41,8 @@ urlpatterns = [
          name='transaction-create'),
     path('transaction/update/<int:pk>/',
          TransactionUpdate.as_view(), name='transaction-update'),
-    #     path('account/delete/<int:pk>/',
-    #          AccountDelete.as_view(), name='account-delete'),
+    path('transaction/delete/<int:pk>/',
+         TransactionDelete.as_view(), name='transaction-delete'),
+    # Tranfer
+    path('transfer/', Transfer, name='transfer'),
 ]

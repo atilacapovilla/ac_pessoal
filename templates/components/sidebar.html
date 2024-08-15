@@ -11,19 +11,30 @@
                     Dashboard
                 </a>
             </li>
+
             <!-- Cadastros Gerais -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-target="#cadastros" data-bs-toggle="collapse"
                     aria-expanded="false">
                     <i class="bi bi-person-vcard pe-1"></i>
-                    Cadastros Gerais
+                    Cadastros
                 </a>
                 <ul id="cadastros" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link sidebar-link-sub">Pessoas</a>
+                        <a href="{% url 'categories' %}" class="sidebar-link sidebar-link-sub">
+                            Categorias Financeiras
+                        </a>
+                    </li>
+                </ul>
+                <ul id="cadastros" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a href="{% url 'accounts' %}" class="sidebar-link sidebar-link-sub">
+                            Contas Bancárias
+                        </a>
                     </li>
                 </ul>
             </li>
+
             <!-- Anotações -->
             <li class="sidebar-item">
                 <a href="#" class="sidebar-link collapsed" data-bs-target="#pages" data-bs-toggle="collapse"
@@ -43,58 +54,23 @@
 
             <!-- Financeiro -->
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link collapsed" data-bs-target="#financeiro" data-bs-toggle="collapse"
+                <a href="#" class="sidebar-link collapsed" data-bs-target="#financas" data-bs-toggle="collapse"
                     aria-expanded="false">
                     <i class="bi bi-cash-coin pe-1"></i>
                     Financeiro
                 </a>
-                <ul id="financeiro" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                    <!-- Financeiro Cadastros -->
+                <ul id="financas" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed sidebar-link-sub" data-bs-target="#fin-cadastros"
-                            data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                            Cadastros
-                        </a>
-                        <ul id="fin-cadastros" class="sidebar-dropdown list-unstyled collapse">
-                            <li class="sidebar-item">
-                                <a href="{% url 'categories' %}" class="sidebar-link sidebar-link-sub2">
-                                    Categorias
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="{% url 'accounts' %}" class="sidebar-link sidebar-link-sub2">
-                                    Contas
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="{% url 'transactions' %}" class="sidebar-link sidebar-link-sub">Transações</a>
                     </li>
-                    <!-- Financeiro Movimento -->
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed sidebar-link-sub" data-bs-target="#fin-movimento"
-                            data-bs-toggle="collapse" aria-expanded="false">
-                            <i class="bi bi-three-dots-vertical"></i>
-                            Movimentação
-                        </a>
-                        <ul id="fin-movimento" class="sidebar-dropdown list-unstyled collapse">
-                            <li class="sidebar-item ">
-                                <a href="{% url 'transactions' %}" class="sidebar-link sidebar-link-sub2">
-                                    Lançamentos
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link sidebar-link-sub2">
-                                    Planejamento
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link sidebar-link-sub2">
-                                    Extratos
-                                </a>
-                            </li>
-                        </ul>
+                        <a href="#" class="sidebar-link sidebar-link-sub">Planejamento</a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="#" class="sidebar-link sidebar-link-sub">Extratos</a>
                     </li>
                 </ul>
+            </li>
         </ul>
     </div>
 </aside>
