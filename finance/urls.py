@@ -17,8 +17,9 @@ from finance.views.transaction_views import (
     TransactionCreate,
     TransactionUpdate,
     TransactionDelete,
-    Transfer,
 )
+from finance.views.transfer_views import Transfer
+from finance.views.card_views import CardList
 
 urlpatterns = [
     # Category
@@ -45,4 +46,6 @@ urlpatterns = [
          TransactionDelete.as_view(), name='transaction-delete'),
     # Tranfer
     path('transfer/', Transfer, name='transfer'),
+    # Cards
+    path('cards/', CardList, name='cards'),
 ]

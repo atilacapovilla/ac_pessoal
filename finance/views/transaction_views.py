@@ -2,17 +2,13 @@ import sweetify
 from datetime import date
 from calendar import monthrange
 
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 
+from finance.forms import TransactionForm
 from finance.models import Transaction, Account
-from finance.forms import TransactionForm, TransferForm
 
 
 class TransactionList(LoginRequiredMixin, ListView):
@@ -34,7 +30,7 @@ class TransactionList(LoginRequiredMixin, ListView):
 
         transactions = Transaction.objects\
             .filter(user=self.request.user, transaction_date__range=[start_date, end_date])\
-            .order_by('-transaction_date', '-due_date')
+            .order_by('-transaction_date', '-due_date', '-created_at')
 
         if account:
             transactions = transactions.filter(account__id=account)
@@ -93,49 +89,3 @@ class TransactionDelete(LoginRequiredMixin, DeleteView):
     def get_queryset(self):
         base_qs = super(TransactionDelete, self).get_queryset()
         return base_qs.filter(user=self.request.user)
-
-
-@login_required
-def Transfer(request):
-    template_name = 'transaction/transfer_form.html'
-    form = TransferForm(request.user, request.POST or None)
-
-    if request.method == 'POST':
-        if form.is_valid():
-            transaction_date = request.POST.get('transaction_date')
-            account_origin = request.POST.get('account_origin')
-            account_destination = request.POST.get('account_destination')
-            category = request.POST.get('category')
-            transaction_value = request.POST.get('transaction_value')
-            description = request.POST.get('description')
-
-            transction = Transaction(
-                due_date=transaction_date,
-                transaction_date=transaction_date,
-                account_id=account_origin,
-                category_id=category,
-                transaction_value=transaction_value,
-                description=description,
-                type='D',
-                is_paid=True,
-                user=request.user,
-            )
-            transction.save()
-
-            transction = Transaction(
-                due_date=transaction_date,
-                transaction_date=transaction_date,
-                account_id=account_destination,
-                category_id=category,
-                transaction_value=transaction_value,
-                description=description,
-                type='C',
-                is_paid=True,
-                user=request.user,
-            )
-            transction.save()
-
-            return redirect('transactions')
-
-    context = {'form': form}
-    return render(request, template_name, context)

@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="dropdown-item-custom" href="#">
+                    <a class="dropdown-item-custom" href="{% url 'cards' %}">
                         <i class="bi bi-credit-card me-2"></i>
                         Pagamento Cartão de Crédito
                     </a>
@@ -93,8 +93,8 @@
                 <th>Conta</th>
                 <th>Descrição</th>
                 <th>Tipo</th>
-                <th>Valor</th>
-                <th>Pagamento</th>
+                <th class="table-col-valor">Valor</th>
+                <th class="table-col-pago">Pago ?</th>
                 <th class="table-col-acoes">Ação</th>
             </tr>
         </thead>
@@ -106,13 +106,25 @@
                 <td>{{ transaction.due_date|date:"d/m/Y" }}</td>
                 <td>{{ transaction.account }}</td>
                 <td>{{ transaction.description }}</td>
-                <td>{{ transaction.get_type_display }}</td>
-                <td>{{ transaction.transaction_value }}</td>
                 <td>
+                    {% if transaction.type == "C" %}
+                    <span class="badge text-bg-primary fs-6">{{ transaction.get_type_display }}</span>
+                    {% else %}
+                    <span class="badge text-bg-danger fs-6">{{ transaction.get_type_display }}</span>
+                    {% endif %}
+                </td>
+                <td class="table-col-valor">
+                    {% if transaction.type == "C" %}
+                    <span class="text-primary fs-6">{{ transaction.transaction_value }}</span>
+                    {% else %}
+                    <span class="text-danger fs-6">{{ transaction.transaction_value }}</span>
+                    {% endif %}
+                </td>
+                <td class="table-col-pago">
                     {% if transaction.is_paid %}
-                    <span class="badge text-bg-success">Pago</span>
+                    <span class="text-success fw-bold fs-6">Sim</span>
                     {% else%}
-                    <span class="badge text-bg-danger">Em Aberto</span>
+                    <span class="text-danger fw-bold fs-6">Não</span>
                     {% endif %}
                 </td>
                 <td class="table-col-acoes">

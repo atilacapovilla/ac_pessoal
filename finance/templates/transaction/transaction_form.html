@@ -16,42 +16,45 @@
 
 <div class="d-flex align-items-center justify-content-center">
     <div class="col-md-10 col-lg-10">
-        <div class="border border-dark border-2 rounded-2 shadow p-3 mb-2">
+        <div class="border border-dark border-1 rounded-2 shadow p-3 mb-2">
             <form method="post" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {{ form.type| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ form.transaction_value| as_crispy_field }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {{ form.transaction_date| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {{ form.due_date| as_crispy_field }}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {{ form.account| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             {{ form.category| as_crispy_field }}
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {{ form.transaction_value| as_crispy_field }}
-                        </div>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-md-12">
