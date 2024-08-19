@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header">
+        Financeiro
+    </div>
+    <div class="card-body">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card card-border-success">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Receitas</h5>
+                        <h4 class="my-1 text-success">R$ {{ finance_metrics.revenues }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card card-border-danger">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Despesas</h5>
+                        <h4 class="my-1 text-danger">R$ {{ finance_metrics.expenses }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                {% if finance_metrics.balance > 0 %}
+                <div class="card card-border-success">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Saldo Balanço</h5>
+                        <h4 class="my-1 text-success">R$ {{ finance_metrics.balance }}</h4>
+                    </div>
+                </div>
+                {% elif finance_metrics.balance < 0 %}
+                <div class="card card-border-danger">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Saldo Balanço</h5>
+                        <h4 class="my-1 text-danger">R$ {{ finance_metrics.balance }}</h4>
+                    </div>
+                </div>
+                {% else %}
+                <div class="card card-border-secondary">
+                    <div class="card-body">
+                        <h5 class="card-title text-secondary">Saldo Balanço</h5>
+                        <h4 class="my-1 text-secondary">R$ {{ finance_metrics.balance }}</h4>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

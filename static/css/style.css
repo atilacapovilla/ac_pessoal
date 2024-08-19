@@ -284,6 +284,11 @@ html[data-bs-theme="light"] .theme-toggle .bi-sun {
     border-left-width: 5px;
 }
 
+.card-border-secondary {
+    border-left-color: #6C757D;
+    border-left-width: 5px;
+}
+
 .dropdown-item-custom {
     display: block;
     width: 100%;
