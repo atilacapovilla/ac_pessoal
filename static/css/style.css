@@ -43,6 +43,7 @@ h4 {
     min-width: 264px;
     background: #18346C;
     transition: all 0.35s ease-in-out;
+    overflow: auto;
 }
 
 .main {
@@ -252,20 +253,18 @@ html[data-bs-theme="light"] .theme-toggle .bi-sun {
 }
   
 .table-col-acoes {
-    width: 150px;
-    min-width: 150px;
+    width: 100px;
+    min-width: 100px;
     text-align: right;
 }
 
 .table-col-valor {
-    /* width: 150px;
-    min-width: 150px; */
     text-align: right;
 }
 
 .table-col-pago {
-    width: 100px;
-    min-width: 100px;
+    width: 80px;
+    min-width: 80px;
     text-align: center;
 }
 
@@ -308,3 +307,5 @@ html[data-bs-theme="light"] .theme-toggle .bi-sun {
     color: var(--bs-dropdown-link-hover-color);
     background-color: var(--bs-dropdown-link-hover-bg);
   }
+
+  

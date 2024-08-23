@@ -15,7 +15,7 @@ class TransactionList(LoginRequiredMixin, ListView):
     model = TransactionForm
     context_object_name = 'transactions'
     template_name = 'transaction/transaction_list.html'
-    paginate_by = 10
+    paginate_by = 100
 
     def get_queryset(self):
         start_date = self.request.GET.get('start_date')

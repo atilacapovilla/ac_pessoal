@@ -84,7 +84,7 @@
 
 {% if transactions %}
 <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-sm table-hover">
         <thead>
             <tr>
                 <th>#</th>
@@ -92,8 +92,8 @@
                 <th>Vencimento</th>
                 <th>Conta</th>
                 <th>Descrição</th>
-                <th>Tipo</th>
-                <th class="table-col-valor">Valor</th>
+                <th class="table-col-valor">Crédito</th>
+                <th class="table-col-valor">Débito</th>
                 <th class="table-col-pago">Pago ?</th>
                 <th class="table-col-acoes">Ação</th>
             </tr>
@@ -106,20 +106,21 @@
                 <td>{{ transaction.due_date|date:"d/m/Y" }}</td>
                 <td>{{ transaction.account }}</td>
                 <td>{{ transaction.description }}</td>
-                <td>
-                    {% if transaction.type == "C" %}
-                    <span class="badge text-bg-primary fs-6">{{ transaction.get_type_display }}</span>
-                    {% else %}
-                    <span class="badge text-bg-danger fs-6">{{ transaction.get_type_display }}</span>
-                    {% endif %}
+                {% if transaction.type == "C" %}
+                <td class="table-col-valor">
+                    <span class="text-primary fs-6">{{ transaction.transaction_value }}</span>
                 </td>
                 <td class="table-col-valor">
-                    {% if transaction.type == "C" %}
-                    <span class="text-primary fs-6">{{ transaction.transaction_value }}</span>
-                    {% else %}
-                    <span class="text-danger fs-6">{{ transaction.transaction_value }}</span>
-                    {% endif %}
+
                 </td>
+                {% else %}
+                <td class="table-col-valor">
+
+                </td>
+                <td class="table-col-valor">
+                    <span class="text-danger fs-6">{{ transaction.transaction_value }}</span>
+                </td>
+                {% endif %}
                 <td class="table-col-pago">
                     {% if transaction.is_paid %}
                     <span class="text-success fw-bold fs-6">Sim</span>
@@ -141,7 +142,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {% include "components/pagination.html" %}
+    {% include "components/pagination_transaction.html" %}
 </div>
 {% else %}
 <div class='fs-3 text-center'>

@@ -18,7 +18,11 @@ class CategoryList(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        categories = Category.objects.filter(user=self.request.user)
+        order = self.request.GET.get('order')
+        if not order:
+            order = 'name'
+        categories = Category.objects.filter(
+            user=self.request.user).order_by(order)
         query = self.request.GET.get('search')
         if query:
             categories = categories.filter(name__icontains=query)
