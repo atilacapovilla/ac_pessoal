@@ -1,11 +1,14 @@
 <!-- grafics -->
-<div class="row row-cols-1 row-cols-md-2 g-4">
-    <div class="col">
-        <div class="card card-border-primary">
-            <div class="card-header h6">Método 50-30-20</div>
+<div class="row">
+    <div class="col-xl-6 col-lg-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="bi bi-table me-1"></i>
+                Tabela Método 50-30-20
+            </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th>Descrição</th>
@@ -46,17 +49,24 @@
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
+            <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
         </div>
     </div>
-    <div class="col">
-        <div class="card card-border-primary">
-            <div class="card-header h6">Método 50-30-20 - ( % sobre receitas )</div>
-            <div class="card-body">
-                <canvas id="method-grafic"></canvas>
+    <!-- Donut Chart -->
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <i class="bi bi-pie-chart me-1"></i>
+                Método 50-30-20 (% sobre despesas)
             </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4">
+                    <canvas id="method-grafic"></canvas>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
         </div>
     </div>
 </div>

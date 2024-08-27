@@ -24,18 +24,20 @@
                 <h4 class="my-1 text-success">R$ {{ finance_balance.balance | floatformat:2}}</h4>
             </div>
         </div>
-        {% elif finance_balance.balance < 0 %} <div class="card card-border-danger">
+        {% elif finance_balance.balance < 0 %}
+         <div class="card card-border-danger">
             <div class="card-body">
                 <h5 class="card-title text-danger">Saldo Balanço</h5>
                 <h4 class="my-1 text-danger">R$ {{ finance_balance.balance }}</h4>
             </div>
-    </div>
-    {% else %}
-    <div class="card card-border-secondary">
-        <div class="card-body">
-            <h5 class="card-title text-secondary">Saldo Balanço</h5>
-            <h4 class="my-1 text-secondary">R$ {{ finance_balance.balance }}</h4>
         </div>
+        {% else %}
+        <div class="card card-border-secondary">
+            <div class="card-body">
+                <h5 class="card-title text-secondary">Saldo Balanço</h5>
+                <h4 class="my-1 text-secondary">R$ {{ finance_balance.balance }}</h4>
+            </div>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
 </div>

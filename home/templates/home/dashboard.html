@@ -27,6 +27,7 @@ PyPessoal - Dashboard
     {% include "home/components/_courses_metrics.html" %}
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!-- grafico de despesas no mes -->
@@ -93,7 +94,7 @@ PyPessoal - Dashboard
                 legend: {
                     labels: {
                         font: {
-                            size: 16
+                            size: 12
                         }
                     }
                 }
@@ -154,7 +155,7 @@ PyPessoal - Dashboard
                 legend: {
                     labels: {
                         font: {
-                            size: 16
+                            size: 12
                         }
                     }
                 }
@@ -180,16 +181,22 @@ PyPessoal - Dashboard
             }]
         },
         options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 16
-                        }
-                    }
-                }
-            }
-        }
+            maintainAspectRatio: false,
+            tooltips: {
+                backgroundColor: "rgb(255,255,255)",
+                bodyFontColor: "#858796",
+                borderColor: '#dddfeb',
+                borderWidth: 1,
+                xPadding: 15,
+                yPadding: 15,
+                displayColors: false,
+                caretPadding: 10,
+            },
+            legend: {
+                display: false
+            },
+            cutoutPercentage: 80,
+        },
     });
 </script>
 {% endblock content %}
