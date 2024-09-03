@@ -1,3 +1,4 @@
+import sweetify
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from django.shortcuts import redirect
@@ -52,6 +53,9 @@ def CardList(request):
                 account_id,
                 due_date
             )
+
+        sweetify.toast(request, 'Pagamento concluido com sucesso',
+                       icon="success", button='OK', timer=2000)
 
         context = {
             'accounts': accounts,

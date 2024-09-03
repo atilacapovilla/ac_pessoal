@@ -11,20 +11,32 @@ PyPessoal - Dashboard
     <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
 </ol>
 
-<h2 class="h5">Financeiro</h2>
-<div>
-    {% include "home/components/_finance_metrics.html" %}
-</div>
-<div>
-    {% include "home/components/_finance_grafics.html" %}
-</div>
-<div>
-    {% include "home/components/_finance_method.html" %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="h5 my-2">Financeiro</h2>
+    </div>
+    <div class="card-body">
+        <div>
+            {% include "home/components/_finance_balance.html" %}
+        </div>
+        <div>
+            {% include "home/components/_finance_grafics.html" %}
+        </div>
+        <div>
+            {% include "home/components/_finance_accounts_balance.html" %}
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
 </div>
 
-<h2 class="h5">Cursos e Anotações</h2>
-<div>
-    {% include "home/components/_courses_metrics.html" %}
+<div class="card">
+    <div class="card-header">
+        <h2 class="h5 my-2">Cursos e Anotações</h2>
+    </div>
+    <div class="card-body">
+        {% include "home/components/_courses_metrics.html" %}
+    </div>
+    <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
 </div>
 
 
@@ -167,36 +179,4 @@ PyPessoal - Dashboard
     });
 </script>
 
-<script>
-    var ctx = document.getElementById("method-grafic");
-    var labels_method = JSON.parse('{{ labels_method|safe }}');
-    var data_method = JSON.parse('{{ data_method|safe }}');
-    var methodChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: labels_method,
-            datasets: [{
-                data: data_method,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            tooltips: {
-                backgroundColor: "rgb(255,255,255)",
-                bodyFontColor: "#858796",
-                borderColor: '#dddfeb',
-                borderWidth: 1,
-                xPadding: 15,
-                yPadding: 15,
-                displayColors: false,
-                caretPadding: 10,
-            },
-            legend: {
-                display: false
-            },
-            cutoutPercentage: 80,
-        },
-    });
-</script>
 {% endblock content %}

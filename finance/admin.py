@@ -4,7 +4,7 @@ from finance.models import Category, Account, Transaction
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('group', 'name', 'type', 'method', 'planned_value')
+    list_display = ('group', 'name', 'type', 'planned_value')
 
 
 @admin.register(Account)

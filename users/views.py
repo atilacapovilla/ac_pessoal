@@ -1,3 +1,5 @@
+import sweetify
+
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -28,6 +30,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save()
+
         if user:
             login(self.request, user)
 
@@ -60,7 +63,8 @@ class MyProfile(LoginRequiredMixin, View):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Seu Perfil foi atualizado com sucesso')
+            sweetify.toast(self.request, 'Seu Perfil foi atualizado com sucesso',
+                           icon="success", button='OK', timer=2000)
             return redirect('profile')
         else:
             context = {

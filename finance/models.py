@@ -11,21 +11,18 @@ class Category(models.Model):
         ('4', 'Transferencia')
     )
     TYPE_CHOICE = (
-        ('1', 'Fixa'),
-        ('2', 'Variavel')
-    )
-    METHOD_CHOICE = (
-        ('1', 'Essencial'),
-        ('2', 'Superfluo'),
-        ('3', 'Divida ou Investimento')
+        ('1', 'Renda'),
+        ('2', 'Despesa Fixa'),
+        ('3', 'Despesa Variável Essencial'),
+        ('4', 'Despesa Variável Supérflua'),
+        ('5', 'Despesa Variável Eventual'),
+        ('6', 'Outros'),
     )
     name = models.CharField(max_length=50, verbose_name='Nome')
     group = models.CharField(
         max_length=1, choices=GROUP_CHOICE, default='1', verbose_name='Grupo')
     type = models.CharField(
         max_length=1, choices=TYPE_CHOICE, default='1', verbose_name='Tipo')
-    method = models.CharField(
-        max_length=1, choices=METHOD_CHOICE, default='1', verbose_name='Método 50-30-20')
     planned_value = models.DecimalField(
         max_digits=10, decimal_places=2, default='0.00', verbose_name='Valor Planejado')
     user = models.ForeignKey(

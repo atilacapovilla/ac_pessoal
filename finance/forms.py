@@ -6,13 +6,12 @@ from finance.models import Category, Account, Transaction
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['name', 'group', 'type', 'method']
+        fields = ['name', 'group', 'type']
 
         labels = {
             "name": ("Nome"),
             "group": ("Grupo"),
-            "type": ("Fixa ou Variável"),
-            "method": ("Método 50-30-20"),
+            "type": ("Tipo de categoria"),
         }
 
 

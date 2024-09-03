@@ -54,7 +54,8 @@ class TransactionCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        sweetify.success(self.request, 'A Transaçãofoi criada com suceso.')
+        sweetify.toast(self.request, 'Transação incluida com sucesso',
+                       icon="success", button='OK', timer=2000)
         return super(TransactionCreate, self).form_valid(form)
 
 
@@ -68,7 +69,8 @@ class TransactionUpdate(LoginRequiredMixin, UpdateView):
         return {'user': self.request.user}
 
     def form_valid(self, form):
-        sweetify.success(self.request, 'A Transação foi alterada com suceso.')
+        sweetify.toast(self.request, 'Transação alterada com sucesso',
+                       icon="success", button='OK', timer=2000)
         return super(TransactionUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -83,7 +85,8 @@ class TransactionDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('transactions')
 
     def form_valid(self, form):
-        sweetify.error(self.request, 'A Transação foi excluida com suceso.')
+        sweetify.toast(self.request, 'Transação excluida com sucesso',
+                       icon="error", button='OK', timer=2000)
         return super(TransactionDelete, self).form_valid(form)
 
     def get_queryset(self):

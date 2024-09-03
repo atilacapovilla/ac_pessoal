@@ -33,7 +33,8 @@ class AccountCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        sweetify.success(self.request, 'A Conta foi criada com suceso.')
+        sweetify.toast(self.request, 'Conta incluida com sucesso',
+                       icon="success", button='OK', timer=2000)
         return super(AccountCreate, self).form_valid(form)
 
 
@@ -44,7 +45,9 @@ class AccountUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('accounts')
 
     def form_valid(self, form):
-        sweetify.success(self.request, 'A Conta foi alterada com suceso.')
+        sweetify.toast(self.request, 'Conta alterada com sucesso',
+                       icon="success", button='OK', timer=2000)
+
         return super(AccountUpdate, self).form_valid(form)
 
     def get_queryset(self):
@@ -59,7 +62,8 @@ class AccountDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('accounts')
 
     def form_valid(self, form):
-        sweetify.error(self.request, 'A Conta foi excluida com suceso.')
+        sweetify.toast(self.request, 'Conta excluida com sucesso',
+                       icon="error", button='OK', timer=2000)
         return super(AccountDelete, self).form_valid(form)
 
     def get_queryset(self):

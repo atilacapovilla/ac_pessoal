@@ -1,3 +1,5 @@
+import sweetify
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.shortcuts import render
@@ -45,6 +47,8 @@ def Transfer(request):
                 user=request.user,
             )
             transction.save()
+            sweetify.toast(request, 'Tranferancia concluida com sucesso',
+                           icon="success", button='OK', timer=2000)
 
             return redirect('transactions')
 
