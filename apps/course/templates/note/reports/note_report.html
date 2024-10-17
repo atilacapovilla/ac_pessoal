@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>PyPessoal - Anotação Report</title>
+</head>
+<style>
+    @page {
+        @top-right {
+            content: "Curso: {{ note.course.title }}";
+            color: blue;
+            font-size: 12pt;
+            height: 1cm;
+            vertical-align: middle;
+            width: 100%;
+        }
+    }
+</style>
+
+<body>
+    <article>
+        <header>
+            <h3>{{ note.title }}</h3>
+            <p class="small">
+                {% if note.user.first_name %}
+                {{ note.user.first_name }} {{ note.user.last_name }},
+                {% else %}
+                {{ note.user }},
+                {% endif %}
+                em {{ note.created_at|date:"d F Y" }},
+                Ultima alteração {{ note.updated_at|date:"d F Y" }}
+            </p>
+        </header>
+
+        <section class="conteudo">
+            {{ note.content|safe}}
+        </section>
+    </article>
+</body>
+
+</html>

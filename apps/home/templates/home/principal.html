@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+PyPessoal - Dashboard
+{% endblock title %}
+
+{% block content %}
+<h1 class="h4 mt-4">Dashboard</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="h5 my-2">Cursos e Anotações</h2>
+    </div>
+    <div class="card-body">
+        {% include "home/components/_courses_metrics.html" %}
+    </div>
+    <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+{% endblock content %}

@@ -7,12 +7,20 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path('', include('home.urls')),
-    path('', include('course.urls.subject_urls')),
-    path('', include('course.urls.course_urls')),
-    path('', include('course.urls.note_urls')),
+    # home
+    path('', include('apps.home.urls')),
+    # course
+    path('', include('apps.course.urls.subject_urls')),
+    path('', include('apps.course.urls.course_urls')),
+    path('', include('apps.course.urls.note_urls')),
+    # finance
+    path('', include('apps.finance.urls.category_urls')),
+    path('', include('apps.finance.urls.account_urls')),
+    path('', include('apps.finance.urls.transaction_urls')),
+    path('', include('apps.finance.urls.transfer_urls')),
+    path('', include('apps.finance.urls.cards_urls')),
+    path('', include('apps.finance.urls.dashboard_urls')),
     path('', include('users.urls')),
-    path('', include('finance.urls')),
 ]
 
 if settings.DEBUG:

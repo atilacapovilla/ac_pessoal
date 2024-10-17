@@ -15,7 +15,7 @@ class MyloginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('dashboard')
+        return reverse_lazy('principal')
 
     def form_invalid(self, form):
         messages.error(self.request, 'Usuário ou Senha inválidos.')
@@ -26,7 +26,7 @@ class RegisterView(FormView):
     template_name = 'users/register.html'
     form_class = RegisterForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('dashboard-home')
 
     def form_valid(self, form):
         user = form.save()

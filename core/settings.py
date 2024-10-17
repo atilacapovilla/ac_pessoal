@@ -43,12 +43,12 @@ INSTALLED_APPS = [
     'django_summernote',
     'crispy_forms',
     'crispy_bootstrap5',
-    # my apps
-    'home',
-    'course',
-    'users',
-    'finance',
     'sweetify',
+    # my apps
+    'apps.home',
+    'apps.course',
+    'apps.finance',
+    'users',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -181,14 +181,8 @@ SUMMERNOTE_CONFIG = {
     'summernote': {
         'airMode': False,
         'width': '100%',
-        'height': '300',
+        'height': '250',
         'lang': 'pt-BR',
-        'toolbar': [
-            ['style', ['style']],
-            ['font', ['bold', 'italic', 'clear', ]],
-            ['color', ['forecolor', 'backcolor', ]],
-            ['misc', ['picture', 'fullscreen', 'codeview', 'print', 'help', ]],
-        ],
         'print': {
             'stylesheetUrl': '/some_static_folder/printable.css',
         },
