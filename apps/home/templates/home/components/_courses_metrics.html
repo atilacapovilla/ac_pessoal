@@ -1,0 +1,29 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+        <div class="card card-border-primary">
+            <div class="card-body">
+                <h5 class="card-title text-info">Cursos</h5>
+                <h4 class="my-1 text-info">{{ course_balance.total_courses }}</h4>
+                <p class="mb-0 font-13">Cursos cadastrados</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-border-danger">
+            <div class="card-body">
+                <h5 class="card-title text-danger">Anotaçoes</h5>
+                <h4 class="my-1 text-danger">{{ course_balance.total_notes }}</h4>
+                <p class="mb-0 font-13">Anotações cadastradas</p>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card card-border-success">
+            <div class="card-body">
+                <h5 class="card-title text-success">Média de anotações</h5>
+                <h4 class="my-1 text-success">{{ course_balance.avg_notes }}</h4>
+                <p class="mb-0 font-13">Anotações por curso</p>
+            </div>
+        </div>
+    </div>
+</div>

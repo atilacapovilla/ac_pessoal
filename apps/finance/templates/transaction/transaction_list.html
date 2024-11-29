@@ -1,0 +1,159 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Transações{% endblock title %}
+
+{%block content%}
+
+<div class="d-flex mb-2 mt-4 border-bottom border-dark pb-2 align-items-center justify-content-between">
+    <h1 class="h5">
+        <i class="bi bi-card-list me-2"></i>
+        Transações
+    </h1>
+    <div class="dropdown float-end">
+        <button class="btn btn-secondary dropdown-toggle shadow" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <i class="bi bi-plus-circle me-2"></i>
+            Nova Transação
+        </button>
+        <ul class="dropdown-menu dropdown-menu-custom">
+            <li>
+                <a class="dropdown-item" href="{% url 'transaction-create' %}">
+                    <i class="bi bi-cash-coin me-2"></i>
+                    Débito/Crédito
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'transfer' %}">
+                    <i class="bi bi-arrow-left-right me-2"></i>
+                    Transferencia
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{% url 'cards' %}">
+                    <i class="bi bi-credit-card me-2"></i>
+                    Pagamento Cartão de Crédito
+                </a>
+            </li>
+        </ul>
+    </div> 
+</div>
+
+<div class="card shadow mb-2">
+    <div class="card-header">
+        <h6>
+            <i class="bi bi-filter-square me-2"></i>
+            Filtrar Transações.
+        </h6>
+    </div>
+    <div class="card-body">
+        <form class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-text">Data Inicial</div>
+                    <input name="start_date" type="date" value="{{request.GET.start_date}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="input-group">
+                    <div class="input-group-text">Data Final</div>
+                    <input name="end_date" type="date" value="{{request.GET.end_date}}" class="form-control">
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-8">
+                <div class="input-group">
+                    <div class="input-group-text">Conta ou todas</div>
+                    <select class="js-example-basic-single form-select" name="account">
+                        <option value="">Todas as Contas</option>
+                        {% for account in accounts %}
+                        <option value="{{account.id}}"> {{ account }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-filter-square me-2"></i>
+                    Filtrar
+                </button>
+                {% if request.GET.start_date %}
+                <a class="btn btn-secondary me-2" href="{% url 'transactions' %}">
+                    <i class="bi bi-arrow-repeat me-2"></i>
+                    Limpar
+                </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if transactions %}
+        <div class="table-responsive">
+            <table class="table table-sm table-hover" id="tabela-listar">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Vencimento</th>
+                        <th>Conta</th>
+                        <th>Descrição</th>
+                        <th>Categoria</th>
+                        <th>Crédito</th>
+                        <th>Débito</th>
+                        <th>Pago</th>
+                        <th class="table-col-acoes">Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.transaction_date|date:"d/m/Y" }}</td>
+                        <td>{{ transaction.due_date|date:"d/m/Y" }}</td>
+                        <td>{{ transaction.account }}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.category }}</td>
+                        {% if transaction.type == "C" %}
+                        <td class="table-col-valor">
+                            <span class="text-primary fs-6">{{ transaction.transaction_value }}</span>
+                        </td>
+                        <td class="table-col-valor">
+
+                        </td>
+                        {% else %}
+                        <td class="table-col-valor">
+
+                        </td>
+                        <td class="table-col-valor">
+                            <span class="text-danger fs-6">{{ transaction.transaction_value }}</span>
+                        </td>
+                        {% endif %}
+                        <td class="table-col-pago">
+                            {% if transaction.is_paid %}
+                            <span class="text-success fw-bold fs-6">Sim</span>
+                            {% else%}
+                            <span class="text-danger fw-bold fs-6">Não</span>
+                            {% endif %}
+                        </td>
+                        <td class="table-col-acoes">
+                            <a href="{% url 'transaction-update' transaction.id %}" class="btn btn-primary btn-sm me-2"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="{% url 'transaction-delete' transaction.id %}" class="btn btn-danger btn-sm"
+                                data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

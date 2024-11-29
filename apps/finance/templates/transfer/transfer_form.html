@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Transferencia{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+{% comment %} <div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
+    <div class="col-12 col-md-6">
+        <h1 class="h5">Transferencia</h1>
+    </div>
+    <div class="col-12 col-md-6">
+        <a href="{% url 'transactions' %}" class="btn btn-outline-success shadow float-end">
+            <i class="bi bi-card-list me-2"></i>
+            Lista de Transações
+        </a>
+    </div>
+</div> {% endcomment %}
+
+<div class="d-flex align-items-center justify-content-between mt-4 border-bottom border-dark pb-2">
+    <h1 class="h5">
+        <i class="bi bi-arrow-left-right me-2"></i>
+        Transferencia
+    </h1>
+    <a href="{% url 'transactions' %}" class="btn btn-secondary shadow float-end">
+        <i class="bi bi-card-list me-2"></i>
+        Lista de Transações
+    </a>
+</div>
+
+<div class="d-flex align-items-center justify-content-center mt-5">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.transaction_date | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.account_origin | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.account_destination| as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.category | as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.transaction_value | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.description | as_crispy_field }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary me-3">
+                            <i class="bi bi-check-lg me-2"></i>
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

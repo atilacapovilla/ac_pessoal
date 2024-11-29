@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Exclusão de conta{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="d-flex align-items-center justify-content-between mt-4 border-bottom border-dark pb-2">
+    <h1 class="h5">
+        <i class="bi bi-trash me-2"></i>
+        Exclusão de Conta
+    </h1>
+    <a href="{% url 'accounts' %}" class="btn btn-secondary shadow float-end">
+        <i class="bi bi-card-list me-2"></i>
+        Lista de Contas
+    </a>
+</div>
+
+<div class="d-flex align-items-center justify-content-center mt-5">
+    <div class="col-md-10 col-lg-10">
+        <div class="card shadow">
+            <div class="card-body">
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="h5 mt-3 mb-3">Tem certeza que deseja excluir a conta?</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="form-label">Nome</label>
+                            <input class="form-control fs-4 text-danger" type="text" value="{{ account.name }}" disabled
+                                readonly>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-danger mt-5">
+                        <i class="bi bi-trash me-2"></i>
+                        Confirmar Exclusão
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark-custom" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav mt-3">
+                <a class="nav-link" href="{% url 'principal' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-house-door h6"></i>
+                    </div>
+                    Principal
+                </a>
+                <div class="sb-sidenav-menu-heading">Caderno de Estudos</div>
+                <a class="nav-link" href="{% url 'subjects' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-tags h6"></i>
+                    </div>
+                    Assuntos
+                </a>
+                <a class="nav-link" href="{% url 'courses' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-journal-richtext h6"></i>
+                    </div>
+                    Cursos
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Financeiro</div>
+                <a class="nav-link" href="{% url 'dashboard' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-speedometer2 h6"></i>
+                    </div>
+                    Dashboard
+                </a>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+                    aria-expanded="false" aria-controls="collapseLayouts">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-pencil-square h6"></i>
+                    </div>
+                    Cadastros
+                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-down"></i></div>
+                </a>
+                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{% url 'categories' %}">Categorias</a>
+                        <a class="nav-link" href="{% url 'accounts' %}">Contas</a>
+                    </nav>
+                </div>
+                <a class="nav-link" href="{% url 'transactions' %}">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-database-add h6"></i>
+                    </div>
+                    Transações
+                </a>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#extratos"
+                    aria-expanded="false" aria-controls="extratos">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-printer h6"></i>
+                    </div>
+                    Relatórios
+                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-down"></i></div>
+                </a>
+                <div class="collapse" id="extratos" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="layout-static.html">Mensal</a>
+                        <a class="nav-link" href="layout-static.html">Grupo e Categoria</a>
+                    </nav>
+                </div>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#planejamento"
+                    aria-expanded="false" aria-controls="planejamento">
+                    <div class="sb-nav-link-icon">
+                        <i class="bi bi-clipboard2-data  h6"></i>
+                    </div>
+                    Planejamento
+                    <div class="sb-sidenav-collapse-arrow"><i class="bi bi-chevron-down"></i></div>
+                </a>
+                <div class="collapse" id="planejamento" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="layout-static.html">Definir</a>
+                        <a class="nav-link" href="layout-static.html">Visualizar</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="sb-sidenav-footer">
+            <div class="small">Usuário logado:</div>
+            {{ request.user }}
+        </div>
+    </nav>
+</div>

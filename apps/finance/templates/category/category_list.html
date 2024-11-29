@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Categorias{% endblock title %}
+
+{%block content%}
+
+<div class="d-flex align-items-center justify-content-between mt-4 border-bottom border-dark pb-2">
+    <h1 class="h5">
+        <i class="bi bi-card-list me-2"></i>
+        Categorias
+    </h1>
+    <a href="{% url 'category-create' %}" class="btn btn-secondary shadow">
+        <i class="bi bi-plus-circle me-2"></i>
+        Nova Categoria
+    </a>
+</div>
+
+<div class="card shadow mt-2">
+    <div class="card-body">
+        {% if categories %}
+        <div class="table-responsive">
+            <table class="table table-sm table-hover" id="tabela-listar">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Natureza</th>
+                        <th>Prioridade</th>
+                        <th class="table-col-acoes">Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for category in categories %}
+                    <tr>
+                        <td class="text-primary fs-6 fw-bold">
+                            {{ category.order }} - {{ category.name }}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="table-col-acoes">
+                            <a href="{% url 'category-update' category.id %}" class="btn btn-primary btn-sm me-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="{% url 'category-delete' category.id %}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% if category.children.all %}
+                    {% for child in category.children.all %}
+                    <tr>
+                        <td>{{ child.name }}</td>
+                        <td>{{ child.get_category_type_display }}</td>
+                        <td>{{ child.get_category_nature_display }}</td>
+                        <td>{{ child.get_category_priority_display }}</td>
+                        <td class="table-col-acoes">
+                            <a href="{% url 'category-update' child.id %}" class="btn btn-primary btn-sm me-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="{% url 'category-delete' child.id %}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

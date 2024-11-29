@@ -1,0 +1,165 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Transações{% endblock title %}
+
+{%block content%}
+
+<div class="d-flex align-items-center justify-content-between mt-4 border-bottom border-dark pb-2">
+    <h1 class="h5">
+        <i class="bi bi-credit-card me-2"></i>
+        Pagamento Cartão de Crédito
+    </h1>
+    <a href="{% url 'transactions' %}" class="btn btn-secondary shadow float-end">
+        <i class="bi bi-card-list me-2"></i>
+        Lista de Transações
+    </a>
+</div>
+
+<section class="row mt-2">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-header">
+                Informe o vencimento e o cartão
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{% url 'cards' %}" class="row g-3">
+                    {% csrf_token %}
+                    <div class="col-md-4">
+                        <input type="date" class="form-control me-2" name="due_date">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select me-2" name="account">
+                            {% for account in accounts %}
+                            <option value="{{account.id}}"> {{account}} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="bi bi-search me-2"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-center">
+            <div class="card-header">
+                Valor total em aberto
+            </div>
+            <div class="card-body">
+                <div class="fs-4">R$ {{ total_card | floatformat:2 }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2 mb-2">
+        <div class="card text-center">
+            <div class="card-header">
+                Pagamento
+            </div>
+            <div class="card-body">
+                {% if total_card %}
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <i class="bi bi-check2-circle"></i>
+                    Confirmar
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-primary" disabled data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                    <i class="bi bi-check2-circle"></i>
+                    Confirmar
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="card shadow">
+    <div class="card-body">
+        {% if cards %}
+        <div class="table-responsive mb-1">
+            <table class="table table-sm table-hover" id="tabela-nosearch">
+                <thead>
+                    <tr>
+                        <th>Data Transação</th>
+                        <th>Data Vencimento</th>
+                        <th class="table-col-pago">Pagamento</th>
+                        <th>Categoria</th>
+                        <th>Descrição</th>
+                        <th class="text-end">Valor</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for card in cards %}
+                    <tr>
+                        <td>{{ card.transaction_date | date:'d/m/Y'}}</td>
+                        <td>{{ card.due_date | date:'d/m/Y'}}</td>
+                        <td class="table-col-pago">
+                            {% if card.is_paid %}
+                            <span class="text-success fw-bold fs-6">Sim</span>
+                            {% else%}
+                            <span class="text-danger fw-bold fs-6">Não</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ card.category }}</td>
+                        <td>{{ card.description | default_if_none:" "}}</td>
+                        <td class="text-end fw-bold">
+                            {% if card.tipo == 'R' %}
+                            <span class="text-success">{{ card.transaction_value | floatformat:2 }}</span>
+                            {% else %}
+                            <span class="text-danger">{{ card.transaction_value | floatformat:2 }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Baixa de Cartão de Crédito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="col-md-12">
+                        <label for="account-debit" class="form-label">Conta para Débito</label>
+                        <select class="form-select mb-2" name="account_debit">
+                            {% for account_debit in accounts_debit %}
+                            <option value="{{account_debit.id}}"> {{account_debit}} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="category" class="form-label">Categoria</label>
+                        <select class="form-select mb-5" name="category">
+                            {% for category in categories %}
+                            <option value="{{category.id}}"> {{category}} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-buttons ">
+                        <button type="submit" class="btn btn-primary me-3">
+                            <i class="bi bi-check2-circle me-2"></i>
+                            Confirmar Pagamento
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

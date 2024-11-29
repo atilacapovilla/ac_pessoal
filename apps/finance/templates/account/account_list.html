@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Contas{% endblock title %}
+
+{%block content%}
+
+<div class="d-flex align-items-center justify-content-between mt-4 border-bottom border-dark pb-2">
+    <h1 class="h5">
+        <i class="bi bi-card-list me-2"></i>
+        Contas
+    </h1>
+    <a href="{% url 'account-create' %}" class="btn btn-secondary shadow">
+        <i class="bi bi-plus-circle me-2"></i>
+        Nova Conta
+    </a>
+</div>
+
+<div class="card shadow mt-2">
+    {% if accounts %}
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover" id="tabela-listar">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Tipo</th>
+                        <th>Saldo Inicial</th>
+                        <th>Saldo Atual</th>
+                        <th class="table-col-acoes">Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for account in accounts %}
+                    <tr>
+                        <td>
+                            <img src="{{ account.logo.url }}" alt="" class="me-2">
+                            {{ account.name }}
+                        </td>
+                        <td>{{ account.get_type_display }}</td>
+                        <td>{{ account.opening_balance }}</td>
+                        <td>{{ account.current_balance }}</td>
+                        <td class="table-col-acoes">
+                            <a href="{% url 'account-update' account.id %}" class="btn btn-primary btn-sm me-2">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="{% url 'account-delete' account.id %}" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

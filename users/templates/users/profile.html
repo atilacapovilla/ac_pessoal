@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Perfil{% endblock title %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
+    <div class="col-12 col-md-6">
+        <h1 class="h5">Perfil do usuário</h1>
+    </div>
+    <div class="col-12 col-md-6">
+        <a href="{% url 'dashboard' %}" class="btn btn-outline-success shadow float-end">
+            <i class="bi bi-speedometer2 me-2"></i>
+            Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="d-flex align-items-center justify-content-center mt-5">
+    <div class="col-md-10 col-lg-10">
+        <div class="shadow p-3 mb-2">
+            <div class="row">
+                <div class="col-md-4">
+                    {% if user.profile %}
+                    <img src="{{user.profile.avatar.url}}" alt="{{ user.username }}" class="img-fluid"
+                        accept=".jpg,.jpeg,.png" />
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ user_form.email | as_crispy_field }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ profile_form.avatar | as_crispy_field }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons mt-3">
+                            <button type="submit" class="btn btn-primary me-3">
+                                <i class="bi bi-check-lg me-2"></i>
+                                Salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

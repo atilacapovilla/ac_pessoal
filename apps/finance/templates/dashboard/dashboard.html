@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+PyPessoal - Dashboard financeiro
+{% endblock title %}
+
+{% block content %}
+<h1 class="h4 mt-4">Financeiro - Dashboard</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div>
+            {% include "dashboard/components/_finance_balance.html" %}
+        </div>
+        <div>
+            {% include "dashboard/components/_finance_grafics.html" %}
+        </div>
+        <div>
+            {% include "dashboard/components/_finance_balance_pendents.html" %}
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Atualizado em {% now "SHORT_DATETIME_FORMAT" %}</div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- grafico de despesas fixas no mes -->
+<script>
+    var ctx = document.getElementById("expenses-fix-month");
+    var labels_fix = JSON.parse('{{ labels_fix|safe }}');
+    var data_fix = JSON.parse('{{ data_fix|safe }}');
+
+    var expensesMonthChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_fix,
+            datasets: [{
+                label: 'Despesas Fixas',
+                data: data_fix,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(255, 192, 192, 0.5)',
+                    'rgba(255, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: false,
+                text: 'Despesas no Mes',
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: 0
+            }
+        }
+    });
+</script>
+
+<!-- grafico de despesas variaveis no mes -->
+<script>
+    var ctx = document.getElementById("expenses-var-month");
+    var labels_var = JSON.parse('{{ labels_var|safe }}');
+    var data_var = JSON.parse('{{ data_var|safe }}');
+
+    var expensesMonthChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels_var,
+            datasets: [{
+                label: 'Despesas Variáveis',
+                data: data_var,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(255, 192, 192, 0.5)',
+                    'rgba(255, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            indexAxis: 'y',
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: false,
+                text: 'Despesas no Mes',
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: 0
+            }
+        }
+    });
+</script>
+
+<!-- grafico de incomes e despesas no ano -->
+<script>
+    var ctx = document.getElementById("expenses-incomes-year");
+    var labels_year = JSON.parse('{{ labels_year|safe }}');
+    var data_expenses_year = JSON.parse('{{ data_expenses_year|safe }}');
+    var data_incomes_year = JSON.parse('{{ data_incomes_year|safe }}');
+    var expensesYearChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            labels: labels_year,
+            datasets: [
+                {
+                    type: 'line',
+                    label: 'Receitas',
+                    data: data_incomes_year,
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderWidth: 1
+                },
+                {
+                    type: 'bar',
+                    label: 'Despesas',
+                    data: data_expenses_year,
+                    borderColor: 'rgba(255,99,132,1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderWidth: 1
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: false,
+                text: ' Receitas e Despesas no Ano',
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 12
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: 0
+            }
+        }
+    });
+</script>
+
+{% endblock content %}

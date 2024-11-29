@@ -1,0 +1,64 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block title %}Lista de Anotações{% endblock title %}
+
+{%block content%}
+<div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
+    <div class="col-12 col-md-6">
+        <h1 class="h5">Anotações - Curso: {{ course.title }}</h1>
+    </div>
+    <div class="col-12 col-md-6">
+        <a href="{% url 'note-create' course.id %}" class="btn btn-outline-success shadow float-end">
+            <i class="bi bi-plus-circle me-2"></i>
+            Nova Anotação
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if notes %}
+        <div class="table-responsive">
+            <table class="table table-sm table-hover" id="tabela-listar">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Autor</th>
+                        <th>Criado em</th>
+                        <th>Alterado em</th>
+                        <th>Ativo</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for note in notes %}
+                    <tr>
+                        <td>{{ note.title|truncatewords:20 }}</td>
+                        <td>{{ note.user | title }}</td>
+                        <td>{{ note.created_at | date:"d/m/Y" }}</td>
+                        <td>{{ note.updated_at | date:"d/m/Y" }}</td>
+                        {% if note.active %}
+                        <td>
+                            <span class="badge text-bg-success">Sim</span>
+                        </td>
+                        {% else %}
+                        <td>
+                            <span class="badge text-bg-danger">Não</span>
+                        </td>
+                        {% endif%}
+                        <td>
+                            <a href="{% url 'note-detail' pk=note.pk %}" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-person-vcard me-2"></i>
+                                Detalhes
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{%endblock content%}
