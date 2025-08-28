@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # terceiros apps
-    'markdownx',
     'crispy_forms',
     'crispy_bootstrap5',
     'sweetify',
@@ -49,8 +48,6 @@ INSTALLED_APPS = [
     'apps.finance',
     'users',
 ]
-
-MARKDOWNX_MEDIA_PATH = "uploads/markdownx/"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
