@@ -29,7 +29,7 @@ class NoteList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         course_id = self.kwargs['course_id']
         notes = Note.objects.filter(
-            user=self.request.user, course_id=course_id)
+            user=self.request.user, course_id=course_id).order_by('order')
         query = self.request.GET.get('search')
         if query:
             notes = notes.filter(title__icontains=query)

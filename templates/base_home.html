@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="{% static 'global/css/datatables.css' %}" />
     <link rel="stylesheet" href="{% static 'global/css/bootstrap-icons.css' %}">
     <link rel="stylesheet" href="{% static 'global/css/styles.css' %}" />
-    <link rel="stylesheet" href="{% static 'global/css/home.css' %}" />
+
+    {% block extra_css %} {% endblock %}
 </head>
 
 <body class='bg-dark-custom'>

@@ -15,14 +15,17 @@
     <link rel="stylesheet" href="{% static 'global/css/datatables.css' %}" />
     <link rel="stylesheet" href="{% static 'global/css/bootstrap-icons.css' %}">
     <link rel="stylesheet" href="{% static 'global/css/styles.css' %}" />
+    {% block extra_css %}{% endblock extra_css %}
 </head>
 
 <body class="sb-nav-fixed">
-    {% include "components/_navbar.html" %}
-
+    {% if user.is_authenticated %}
+        {% include "components/_navbar.html" %}
+    {% endif %}
     <div id="layoutSidenav">
-        {% include "components/_sidebar.html" %}
-
+        {% if user.is_authenticated %}
+            {% include "components/_sidebar.html" %}
+        {% endif %}
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
@@ -34,7 +37,7 @@
             {% include "components/_footer.html" %}
         </div>
     </div>
-
+    
     <script src="{% static 'global/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'global/js/datatables.min.js' %}"></script>
     <script src="{% static 'global/js/datatables-config.js' %}"></script>
@@ -43,7 +46,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.5/sweetalert2.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     
-    
+    {% block scripts %}{% endblock scripts %}
     {% load sweetify %}
     {% sweetify %}
 </body>

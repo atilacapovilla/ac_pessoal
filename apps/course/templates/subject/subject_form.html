@@ -1,47 +1,37 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block title %}
-PyPessoal {% if subject %}Alteração de {% else %}Novo {% endif %} Assunto
+PyPessoal - {% if subject %}Alterar{% else %}Novo{% endif %} Assunto
 {% endblock title %}
 
 {% block content %}
-{% load crispy_forms_tags %}
-
-<div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
-    <div class="col-12 col-md-6">
-        <h1 class="h5">{% if subject %}Alteração de {% else %}Novo {% endif %} Assunto</h1>
-    </div>
-    <div class="col-12 col-md-6">
-        <a href="{% url 'subjects' %}" class="btn btn-outline-success shadow float-end">
-            <i class="bi bi-card-list me-2"></i>
-            Lista de Assuntos
-        </a>
-    </div>
-</div>
-
-<div class="d-flex align-items-center justify-content-center mt-5">
-    <div class="col-md-8 col-lg-8">
-        <div class="card shadow">
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.active| as_crispy_field }}
-                            </div>
+<div class="container-fluid py-4 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header">
+                    <h1 class="h3 text-dark">
+                        {% if subject %}Alterar Assunto{% else %}Novo Assunto{% endif %}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <div class="d-grid gap-2 d-md-block mt-4">
+                            <button type="submit" class="btn btn-primary shadow-sm">
+                                <i class="bi bi-save me-2"></i>
+                                Salvar
+                            </button>
+                            <a href="{% url 'subjects' %}" class="btn btn-outline-secondary shadow-sm ms-md-2">
+                                <i class="bi bi-x-lg me-2"></i>
+                                Cancelar
+                            </a>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.title| as_crispy_field }}
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary shadow">
-                        <i class="bi bi-check-lg me-2"></i>
-                        Salvar
-                    </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

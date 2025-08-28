@@ -37,7 +37,6 @@ class CourseCreate(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        # messages.success(self.request, 'O Curso foi criado com sucesso.')
         sweetify.success(self.request, 'O Curso foi criado com suceso.')
         return super(CourseCreate, self).form_valid(form)
 

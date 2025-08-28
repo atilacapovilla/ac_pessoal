@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # terceiros apps
-    'django_summernote',
+    'markdownx',
     'crispy_forms',
     'crispy_bootstrap5',
     'sweetify',
@@ -50,6 +49,8 @@ INSTALLED_APPS = [
     'apps.finance',
     'users',
 ]
+
+MARKDOWNX_MEDIA_PATH = "uploads/markdownx/"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
@@ -89,18 +90,18 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'ac_pessoal',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'ncc1701',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'acpessoal',
+        'USER': 'atilacapovilla',
+        'PASSWORD': 'n@@175#trek',
+        'HOST': 'atilacapovilla.mysql.pythonanywhere-services.com',
+        'PORT': '3306',
+    }
 }
 
 
@@ -139,11 +140,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'base_static',
-)
-STATIC_ROOT = BASE_DIR / 'static'
-
+STATICFILES_DIRS = [BASE_DIR / "base_static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

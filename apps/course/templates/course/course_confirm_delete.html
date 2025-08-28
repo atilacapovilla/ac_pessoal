@@ -5,38 +5,54 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
-    <div class="col-12 col-md-6">
-        <h1 class="h5">Exclusão de Curso</h1>
-    </div>
-    <div class="col-12 col-md-6">
-        <a href="{% url 'courses' %}" class="btn btn-outline-success shadow float-end">
-            <i class="bi bi-card-list me-2"></i>
-            Lista de Cursos
-        </a>
-    </div>
-</div>
-
-<div class="d-flex align-items-center justify-content-center mt-5">
-    <div class="col-md-10 col-lg-10">
-        <div class="card shadow">
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    <div class="h5 mt-3 mb-3">Tem certeza que deseja excluir o curso ?</div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input class="form-control fs-4 text-danger" type="text" value="{{ course.title }}" disabled
-                                readonly>
+<div class="container-fluid py-4 mt-3">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0 mt-3">
+                <div class="card-header">
+                    <h1 class="h3 text-dark">Excluir Curso</h1>
+                </div>
+                <div class="card-body">
+                    <div class="card-title">
+                        <div class="alert alert-danger shadow-sm border-0 d-flex align-items-center" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2 fs-4"></i>
+                            <div>
+                                <h4 class="alert-heading h5">Atenção: Exclusão Permanente!</h4>
+                                <p class="mb-0">
+                                    Você está prestes a excluir o curso.
+                                </p>
+                                <p class="mb-0">
+                                    Esta ação não pode ser desfeita.
+                                </p>
+                                <p class="mb-0">
+                                    O Curso e todas as suas anotações serão excluidas.
+                                </p>
+                            </div>
                         </div>
+
                     </div>
-                    <button type="submit" class="btn btn-danger mt-5">
-                        <i class="bi bi-trash me-2"></i>
-                        Confirmar Exclusão
-                    </button>
-                </form>
+                    <p class="text-muted mb-2">Detalhes do item a ser excluído:</p>
+                    <h4 class="card-title fw-bold text-danger">{{ course.title }}</h4>
+                    <h5 class="mt-4">
+                        Este curso possui {{ course.notes.count }} anotaç{{ course.notes.count|pluralize:"ão,ões" }}.
+                    </h5>
+                    <form method="post" class="mt-5">
+                        {% csrf_token %}
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="submit" class="btn btn-danger shadow-sm">
+                                <i class="bi bi-trash me-2"></i>
+                                Confirmar Exclusão
+                            </button>
+                            <a href="{% url 'courses' %}" class="btn btn-outline-secondary shadow-sm ms-md-2">
+                                <i class="bi bi-x-lg me-2"></i>
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

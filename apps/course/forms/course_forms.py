@@ -12,10 +12,8 @@ class CourseForm(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = ['title', 'description', 'subject', 'active']
-        widgets = {
-            'description': forms.Textarea(attrs={'cols': 80, 'rows': 5}),
-        }
+        fields = ['title', 'subject', 'active']
+
         labels = {
             "title": ("Título"),
             "description": ("Descrição"),

@@ -3,56 +3,77 @@
 
 {% block title %}{% if note %}Alteração de {% else %}Nova {% endif %} Anotação{% endblock title %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+{% endblock extra_css %}
+
 {% block content %}
 {% load crispy_forms_tags %}
 
-
-<div class="row mb-2 mt-4 border-bottom border-dark pb-2 align-items-center">
-    <div class="col-12 col-md-6">
-        <h1 class="h5">{% if note %}Alteração de {% else %}Nova {% endif %} Anotação</h1>
-    </div>
-    <div class="col-12 col-md-6">
-        <a href="{% url 'note-list' course_id %}" class="btn btn-outline-success shadow float-end">
-            <i class="bi bi-card-list me-2"></i>
-            Lista de Anotações
-        </a>
-    </div>
-</div>
-
-<div class="d-flex align-items-center justify-content-center">
-    <div class="col-md-12 col-lg-12">
-        <div class="card shadow">
-            <div class="card-body">
-                <form method="post" novalidate>
-                    {% csrf_token %}
-                    {{ form.media }}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.active | as_crispy_field }}
+<div class="container-fluid py-4 mt-1">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-12 col-lg-12">
+            <div class="card shadow-sm border-0">
+                <div class="card-header">
+                    <h1 class="h3 text-dark">
+                        {% if course %}Alterar Anotação {% else %}Nova Anotação{% endif %}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    {{ form.title| as_crispy_field }}
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{ form.order| as_crispy_field }}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.title | as_crispy_field }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.content| as_crispy_field  }}
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                {{ form.content | as_crispy_field }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    {{ form.active| as_crispy_field }}
+                                </div>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="btn btn-primary me-2">
-                            <i class="bi bi-check-lg me-2"></i>
-                            Salvar
-                        </button>
-                    </div>
-                </form>
+                        <div class="d-grid gap-2 d-md-block mt-4">
+                            <button type="submit" class="btn btn-primary shadow-sm">
+                                <i class="bi bi-save me-2"></i>
+                                Salvar
+                            </button>
+                            <a href="{% url 'note-list' course_id %}" class="btn btn-outline-secondary shadow-sm ms-md-2">
+                                <i class="bi bi-x-lg me-2"></i>
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}
+
+
+{% block scripts %}
+    <script>
+        const easymde = new EasyMDE({
+            element: document.getElementById('id_content'),
+        });
+    </script> 
+{% endblock scripts %}

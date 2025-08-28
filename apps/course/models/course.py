@@ -3,7 +3,6 @@ from apps.course.models import *
 
 class Course(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
