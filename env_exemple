@@ -1,0 +1,8 @@
+DJANGO_SETTINGS_MODULE=core.settings.prod
+SECRET_KEY=uma_secret_key_segura_aqui
+DEBUG=False
+ALLOWED_HOSTS=meusite.com,www.meusite.com
+DATABASE_URL=mysql://usuario:senha@localhost:3306/nomedobanco
+TIME_ZONE=America/Sao_Paulo
+LANGUAGE_CODE=pt-br
+

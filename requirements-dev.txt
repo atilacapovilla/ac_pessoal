@@ -1,0 +1,7 @@
+-r requirements.txt
+
+# Dependências extras para desenvolvimento
+django-debug-toolbar==6.0.0
+ipython
+black
+flake8
