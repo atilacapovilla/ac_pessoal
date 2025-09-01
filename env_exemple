@@ -1,8 +1,9 @@
-DJANGO_SETTINGS_MODULE=core.settings.prod
-SECRET_KEY=uma_secret_key_segura_aqui
+SECRET_KEY=sua-chave-secreta-de-producao
 DEBUG=False
-ALLOWED_HOSTS=meusite.com,www.meusite.com
-DATABASE_URL=mysql://usuario:senha@localhost:3306/nomedobanco
-TIME_ZONE=America/Sao_Paulo
-LANGUAGE_CODE=pt-br
+DATABASE_ENGINE=django.db.backends.mysql
+DATABASE_NAME=my_prod_database
+DATABASE_USER=my_prod_user
+DATABASE_PASSWORD=my_prod_password
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
 

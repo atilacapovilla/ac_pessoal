@@ -2,15 +2,13 @@ import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
 from decouple import config
-from dj_database_url import parse as db_url
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = config('SECRET_KEY')
 
-SECRET_KEY = config("SECRET_KEY")
-
-DEBUG = config("DEBUG", default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=lambda v: [
                        s.strip() for s in v.split(",")])
@@ -23,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     # terceiros apps
     'crispy_forms',
     'crispy_bootstrap5',
@@ -39,12 +38,17 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -67,24 +71,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+# Variáveis de ambiente para o banco de dados
+DATABASE_ENGINE = config('DATABASE_ENGINE')
+DATABASE_NAME = config('DATABASE_NAME')
+DATABASE_USER = config('DATABASE_USER', default='')
+DATABASE_PASSWORD = config('DATABASE_PASSWORD', default='')
+DATABASE_HOST = config('DATABASE_HOST', default='')
+DATABASE_PORT = config('DATABASE_PORT', default='')
+
+# Configuração do banco de dados
 DATABASES = {
-    'default': db_url(config("DATABASE_URL"))
+    'default': {
+        'ENGINE': DATABASE_ENGINE,
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
+        'PORT': DATABASE_PORT,
+    }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     },
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'acpessoal',
-#         'USER': 'atilacapovilla',
-#         'PASSWORD': 'n@@175#trek',
-#         'HOST': 'atilacapovilla.mysql.pythonanywhere-services.com',
-#         'PORT': '3306',
-#     }
-# }
+# Se for SQLite, remove as chaves vazias
+if DATABASE_ENGINE == 'django.db.backends.sqlite3':
+    DATABASES['default'].pop('USER')
+    DATABASES['default'].pop('PASSWORD')
+    DATABASES['default'].pop('HOST')
+    DATABASES['default'].pop('PORT')
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -103,8 +115,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = config("LANGUAGE_CODE", default="pt-br")
-TIME_ZONE = config("TIME_ZONE", default="UTC")
+LANGUAGE_CODE = "pt-br"
+TIME_ZONE = "America/Sao_Paulo"
 USE_I18N = True
 USE_TZ = True
 
