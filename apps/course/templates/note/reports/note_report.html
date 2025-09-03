@@ -1,56 +1,147 @@
-{% load static %}
+{% comment %} {% load static %} {% endcomment %}
 <!DOCTYPE html>
-
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-
     <title>PyPessoal - Anotação Report</title>
-</head>
-<style>
-    @page {
-        @top-right {
-            content: "Curso: {{ note.course.title }}";
-            color: blue;
-            font-size: 12pt;
-            height: 1cm;
-            vertical-align: middle;
-            width: 100%;
+    <style>
+        /* Corpo da página */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
         }
-    }
-{% comment %} 
-    body { font-family: sans-serif; font-size: 14px; }
-    h1, h2, h3 { font-weight: bold; margin: 10px 0; }
-    p { margin: 5px 0; }
-    ul, ol { margin: 10px 20px; }
-    pre, code { background: #f4f4f4; padding: 5px; border-radius: 4px; }
-    table { border-collapse: collapse; width: 100%; margin: 10px 0; }
-    th, td { border: 1px solid #333; padding: 5px; text-align: left; } {% endcomment %}
-    
-</style>
 
+        /* Configuração da página PDF */
+        @page {
+            size: A4;
+            margin: 1cm; /* margem da página */
+            @top-center {
+                content: element(header);
+            }
+        }
+
+        .page-break {
+            break-before: page;
+            page-break-before: always;
+        }
+
+        /* Header compacto */
+        header {
+            display: block;
+            position: running(header);
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px 10px; /* compacto */
+            border-bottom: 1.5px solid #b3b3d0; /* linha mais fina */
+            box-sizing: border-box;
+        }
+
+        .header-col-title {
+            flex: 7; /* 70% */
+            text-align: left;
+        }
+
+        .header-title {
+            font-weight: bold;
+            font-size: 9pt; /* fonte menor para compactar */
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .header-col-info {
+            flex: 3; /* 30% */
+            text-align: right;
+            font-size: 8pt;
+            line-height: 1.2; /* menos espaçamento entre linhas */
+        }
+
+        .page-counter::before {
+            content: "Página " counter(page) " de " counter(pages);
+        }
+
+        /* Área principal do conteúdo */
+        main.container {
+             padding: 1cm 0;
+        }
+
+        /* Tabelas do conteúdo */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 5px;
+        }
+
+        th {
+            width: 90px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            background-color: #f2f2f2;
+            text-align: center;
+        }
+
+        td {
+            width: 90px;
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: right;
+        }
+
+        td:first-child {
+            width: 100px;
+            text-align: left;
+        }
+
+        tr:last-child {
+            font-weight: bold;
+            background-color: #e0e0e0;
+        }
+
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .text-small { font-size: 8pt; }
+        .fw-bold { font-weight: bold; }
+
+    </style>
+</head>
 <body>
-    <article>
-        <header>
-            <h1>{{ note.title }}</h1>
-            <p class="h3">
-                {% if note.user.first_name %}
-                {{ note.user.first_name }} {{ note.user.last_name }},
-                {% else %}
-                {{ note.user }},
-                {% endif %}
-                em {{ note.created_at|date:"d F Y" }},
-                Ultima alteração {{ note.updated_at|date:"d F Y" }}
-            </p>
-        </header>
+    <header>
+        <div class="header-flex">
+            <div class="header-col-title">
+                <div class="header-title">{{ note.course }}</div>
+                <div class="header-title">{{ note.title }}</div>
+                <div class="text-small">
+                    {% if note.user.first_name %}
+                        {{ note.user.first_name }} {{ note.user.last_name }},
+                    {% else %}
+                        {{ note.user }},
+                    {% endif %}
+                    em {{ note.created_at|date:"d F Y" }},
+                    Ultima alteração {{ note.updated_at|date:"d F Y" }}
+                </div>
+            </div>
+            <div class="header-col-info">
+                <div>Emissão em: {% now "d/m/Y" %}</div>
+                <div class="page-counter"></div>
+            </div>
+        </div>
+    </header>
 
-        <section class="conteudo">
-            {{ note.formatted_content|safe }}
-        </section>
-    </article>
+    <main class="container">
+        {{ note.formatted_content|safe }}
+    </main>
 </body>
-
 </html>
