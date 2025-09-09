@@ -45,28 +45,28 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            padding: 5px 10px; /* compacto */
+            padding: 10px 10px; /* compacto */
             border-bottom: 1.5px solid #b3b3d0; /* linha mais fina */
             box-sizing: border-box;
         }
 
         .header-col-title {
             flex: 7; /* 70% */
-            text-align: left;
+            text-align: center;
         }
 
         .header-title {
             font-weight: bold;
             font-size: 9pt; /* fonte menor para compactar */
             text-transform: uppercase;
-            margin: 0;
+            margin: 5px;
         }
 
         .header-col-info {
             flex: 3; /* 30% */
-            text-align: right;
+            text-align: center;
             font-size: 8pt;
-            line-height: 1.2; /* menos espaçamento entre linhas */
+            margin: 5px;
         }
 
         .page-counter::before {
@@ -121,8 +121,8 @@
     <header>
         <div class="header-flex">
             <div class="header-col-title">
-                <div class="header-title">{{ note.course }}</div>
-                <div class="header-title">{{ note.title }}</div>
+                <div class="header-title">Curso : {{ note.course }}</div>
+                <div class="header-title">Anotação # {{note.order}} - {{ note.title }}</div>
                 <div class="text-small">
                     {% if note.user.first_name %}
                         {{ note.user.first_name }} {{ note.user.last_name }},
@@ -134,8 +134,8 @@
                 </div>
             </div>
             <div class="header-col-info">
-                <div>Emissão em: {% now "d/m/Y" %}</div>
-                <div class="page-counter"></div>
+                <div class="header-title">Emissão em: {% now "d/m/Y" %}</div>
+                <div class="header-title page-counter"></div>
             </div>
         </div>
     </header>

@@ -6,7 +6,9 @@
 <div class="container-fluid py-4">
     <div class="row align-items-center mb-4">
         <div class="col-md-8">
-            <h1 class="h3 fw-bold">Anotação - Curso: {{ note.course }}</h1>
+            <h1 class="h4 fw-bold text-dark  mb-0">Anotação</h1>
+            <h5 class="text-primary">Curso: {{ note.course }}</h5>
+
         </div>
         <div class="col-md-4 text-end">
             <a href="{% url 'note-list' object.course_id %}" class="btn btn-outline-secondary">
@@ -19,7 +21,10 @@
     <div class="card shadow-sm border-0">
         <div class="card-header bg-light border-bottom">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="h5 fw-bold mb-0 text-dark">{{ note.title|title }}</h2>
+                <h2 class="h5 fw-bold mb-0 text-dark">
+                    #{{ note.order }} -
+                    {{ note.title }}
+                </h2>
                 <div class="d-flex">
                     <a href="{% url 'note-update' course_id=note.course.id pk=note.id %}" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Anotação">
                         <i class="bi bi-pencil-square"></i>
