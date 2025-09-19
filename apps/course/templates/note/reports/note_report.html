@@ -19,33 +19,56 @@
         }
 
         /* Configuração da página PDF */
-        @page {
+         @page {
             size: A4;
-            margin-top: 2cm; /* margem da página */
+            margin-left: 50px;
+            margin-right: 20px; 
+            @top-left {
+                background: #fff;
+                content: '';
+                height: 2.5cm;
+            }
             @top-center {
                 content: element(header);
+                height: 2,5cm;
+            }
+        }
+        
+        @page {
+            @bottom-center {
+                background: #b3b3dc;
+                content: "Página " counter(page) " de " counter(pages);
+                display: block;
+                font-size: 10pt;
+                height: 20px;
+                width: 100%;
             }
         }
 
         .page-break {
-            break-before: page;
-            page-break-before: always;
+            break-before: page; 
+            page-break-before: always; 
         }
+
 
         /* Header */
         header {
+            display: block;
             position: running(header);
-            /* height of the header */
-            height: 4cm;
+            height: 2.5cm;
+            {% comment %} width: 100%;      
+            box-sizing: border-box;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #b3b3d0; {% endcomment %}
         }
-
+        
         .header-flex {
             display: flex;
             justify-content: space-between;
             width: 100%;
-            padding: 10px 10px; /* compacto */
-            border-bottom: 1.5px solid #b3b3d0; /* linha mais fina */
-            box-sizing: border-box;
+            {% comment %} padding: 10px 10px;
+            border-bottom: 1.5px solid #b3b3d0;
+            box-sizing: border-box; {% endcomment %}
         }
 
         .header-col-title {
@@ -55,26 +78,21 @@
 
         .header-title {
             font-weight: bold;
-            font-size: 9pt; /* fonte menor para compactar */
+            font-size: 9pt; 
             text-transform: uppercase;
-            margin: 5px;
+            {% comment %} margin: 5px; {% endcomment %}
         }
 
         .header-col-info {
             flex: 3; /* 30% */
             text-align: center;
             font-size: 8pt;
-            margin: 5px;
+            {% comment %} margin: 5px; {% endcomment %}
         }
 
         .page-counter::before {
             content: "Página " counter(page) " de " counter(pages);
-        }
-
-        /* Área principal do conteúdo */
-        main.container {
-            font-size: 9pt;
-        }
+        } 
          
         .text-center { text-align: center; }
         .text-right { text-align: right; }
@@ -84,11 +102,11 @@
     </style>
 </head>
 <body>
-    <header>
+    <header class="page-break">
         <div class="header-flex">
             <div class="header-col-title">
                 <div class="header-title">Curso : {{ note.course }}</div>
-                <div class="header-title">Anotação # {{note.order}} - {{ note.title }}</div>
+                <div class="header-title"># {{note.order}} - {{ note.title }}</div>
                 <div class="text-small">
                     {% if note.user.first_name %}
                         {{ note.user.first_name }} {{ note.user.last_name }},
